@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyWeb.Data;
 
 namespace MyWeb.Migrations
 {
     [DbContext(typeof(Contents))]
-    partial class ContentsModelSnapshot : ModelSnapshot
+    [Migration("20201227180952_What_Are_You_Passionate_About")]
+    partial class What_Are_You_Passonaite_About
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,7 +28,7 @@ namespace MyWeb.Migrations
                         .HasColumnType("int")
                         .UseIdentityColumn();
 
-                    b.Property<DateTime>("ReleaseDate")
+                    b.Property<DateTime>("Release_Date")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
@@ -36,12 +38,6 @@ namespace MyWeb.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("What_To_Do")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Who_Are_You_Making_This_For")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Why_Did_You_Decide_To_Create_This_Website_or_App")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

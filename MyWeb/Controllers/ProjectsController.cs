@@ -54,7 +54,7 @@ namespace MyWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,ReleaseDate")] Projects projects)
+        public async Task<IActionResult> Create([Bind("Id,Title,ReleaseDate,What_To_Do, What_Are_You_Passionate_About, Who_Are_You_Making_This_For,Why_Did_You_Decide_To_Create_This_Website_or_App")] Projects projects)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace MyWeb.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ReleaseDate")] Projects projects)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ReleaseDate,What_To_Do, What_Are_You_Passionate_About, Who_Are_You_Making_This_For, Why_Did_You_Decide_To_Create_This_Website_or_App")] Projects projects)
         {
             if (id != projects.Id)
             {

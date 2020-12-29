@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyWeb.Data;
 
 namespace MyWeb.Migrations
 {
     [DbContext(typeof(Contents))]
-    partial class ContentsModelSnapshot : ModelSnapshot
+    [Migration("20201228183250_Why_Did_You_Decide_To_Create_This_Website_or_App")]
+    partial class Why_Did_You_Decide_To_Create_This_Website_or_App
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
