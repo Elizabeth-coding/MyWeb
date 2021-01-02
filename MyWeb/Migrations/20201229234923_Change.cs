@@ -2,13 +2,13 @@
 
 namespace MyWeb.Migrations
 {
-    public partial class What_To_Do : Migration
+    public partial class Change : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "What_To_Do",
-                table: "Projects",
+                name: "Change",
+                table: "Geekration",
                 type: "nvarchar(max)",
                 nullable: true);
         }
@@ -16,8 +16,8 @@ namespace MyWeb.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "What_To_Do",
-                table: "Projects");
+                name: "Change",
+                table: "Geekration");
         }
     }
 }

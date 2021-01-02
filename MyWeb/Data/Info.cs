@@ -4,15 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MyWeb.Models;
+
+
 namespace MyWeb.Data
 {
-        public class Contents: DbContext
+    public class Info : DbContext
     {
-        public Contents(DbContextOptions<Contents> options)
+        public Info(DbContextOptions<Info> options)
             : base(options)
         {
         }
 
-        public DbSet<Projects> Projects { get; set; }
+        public DbSet<Geekration> Geekration { get; set; }
     }
 }

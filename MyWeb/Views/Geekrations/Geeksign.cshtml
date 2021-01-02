@@ -1,0 +1,122 @@
+﻿@{
+    ViewData["Title"] = "Geeksign";
+}
+<style>
+    h1 {
+        text-align: center;
+    }
+
+    .droptarget {
+        text-align:center;
+        float: left;
+        width: 100px;
+        height: 400px;
+        margin: 15px;
+        padding: 10px;
+        border: 1px solid #aaaaaa;
+    }
+
+    #drop {
+        text-align: center;
+        float: left;
+        width: 500px;
+        height: 400px;
+        margin: 15px;
+        padding: 10px;
+        border: 1px solid #aaaaaa;
+    }
+
+    #dragtarget {
+        text-align: center;
+        margin-top: 30px;
+        cursor: move;
+        z-index: 10;
+    }
+    #sub {
+        margin-top: 10px;
+    }
+    #dragbutton {
+       
+        margin-top: 30px;
+        cursor: move;
+        z-index: 10;
+    }
+    #dragInput {
+        margin-top: 30px;
+        width: 80px;
+    }
+</style>
+<h2 id="main"></h2>
+
+<div class="droptarget" ondragover="allowDrop(event,this.id)" id="drag">
+    <p onclick ="Edit(this.id)" onmousedown = "rightclk(event,this.id)" ondragstart="dragStart(this.id)" draggable="true" id="dragtarget" class="drags">Label</p>
+    <p onclick ="Edit(this.id)" onmousedown = "rightclk(event,this.id)" ondragstart="dragStart(this.id)" draggable="true" id="dragbutton" class="drags">Button</p>
+    <p onclick ="Edit(this.id)" onmousedown = "rightclk(event,this.id)" ondragstart="dragStart(this.id)" draggable="true" id="dragInput" class="drags" >Text Input</p>
+</div>
+
+<div ondrop="drop(this.id)" ondragover="allowDrop(event)" id="drop"></div>
+<h2>Edit</h2>
+<p id="demo"></p>
+<p id="hello"></p>
+<input type ="text"id="inp">
+<br/>
+<input type="submit" id="sub" onclick="Click()">
+<script>
+    var n = 1;
+    var l = "";
+    var ele = "";
+    var hi = "";
+    function dragStart(Chose) {
+        event.dataTransfer.setData("Text", event.target.id);
+        l = Chose;
+    }
+
+    function allowDrop(event) {
+        event.preventDefault();
+    }
+
+    function drop(chosen) {
+        //alert(l);
+        event.preventDefault();
+        
+        if (l == document.getElementById("dragbutton").id) {
+            cln = document.createElement("BUTTON");
+            cln.innerHTML = "button";
+            cln.id = "Button" + n.toString();
+        }
+        else if(l == document.getElementById("dragInput").id){
+            cln = document.createElement("INPUT");
+            cln.innerHTML = "Type here: ";
+            cln.id = "Input" + n.toString();
+        }
+        else {
+            var data = document.getElementById(l),
+                cln = data.cloneNode(true);
+            cln.id = "Label" + n.toString();
+        }
+        cln.style.textAlign = "center";
+        cln.onclick = function () { Edit(this.id) };
+        cln.onmousedown = function () { rightclk(event, this.id) };
+        document.getElementById("drop").appendChild(cln);
+        document.getElementById("hello").innerHTML = "Click the element you want to change then type your text in the input area bellow this text. Lastly press submit.";
+        //document.getElementById("demo").innerHTML = document.getElementById("Label" + n.toString()).id;
+        n = n + 1;
+    }
+    function Edit(clicked_id) {
+        hi = clicked_id;
+        document.getElementById("demo").innerHTML = document.getElementById(hi).id;
+    }
+    function Click() {
+        
+        ele = document.getElementById("inp").value;
+        document.getElementById(hi).innerHTML = ele;  
+    }
+    function rightclk(event,click) {
+        if (event.button == 2) {
+            var obj = document.getElementById(click);
+            obj.remove();
+        }
+    }
+
+</script>
+

@@ -26,8 +26,8 @@ namespace MyWeb
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddDbContext<Contents>(options =>
-            options.UseSqlServer(Configuration.GetConnectionString("Contents")));
+            services.AddDbContext<Info>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("Info")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

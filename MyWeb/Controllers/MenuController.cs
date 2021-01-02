@@ -12,5 +12,8 @@ namespace MyWeb.Controllers
         {
             return View();
         }
+        public IActionResult Web() {
+            return View();
+        }
     }
 }
