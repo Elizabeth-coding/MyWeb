@@ -7,7 +7,7 @@
     }
 
     .droptarget {
-        text-align:center;
+        text-align: center;
         float: left;
         width: 100px;
         height: 400px;
@@ -32,40 +32,76 @@
         cursor: move;
         z-index: 10;
     }
+
     #sub {
         margin-top: 10px;
     }
+
     #dragbutton {
-       
         margin-top: 30px;
         cursor: move;
         z-index: 10;
     }
+
     #dragInput {
         margin-top: 30px;
         width: 80px;
+    }
+
+    div.scroll {
+        overflow-x: hidden;
+        overflow-y: auto;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .edits {
+        margin-top: 20px;
     }
 </style>
 <h2 id="main"></h2>
 
 <div class="droptarget" ondragover="allowDrop(event,this.id)" id="drag">
-    <p onclick ="Edit(this.id)" onmousedown = "rightclk(event,this.id)" ondragstart="dragStart(this.id)" draggable="true" id="dragtarget" class="drags">Label</p>
-    <p onclick ="Edit(this.id)" onmousedown = "rightclk(event,this.id)" ondragstart="dragStart(this.id)" draggable="true" id="dragbutton" class="drags">Button</p>
-    <p onclick ="Edit(this.id)" onmousedown = "rightclk(event,this.id)" ondragstart="dragStart(this.id)" draggable="true" id="dragInput" class="drags" >Text Input</p>
+    <p onclick="Edit(this.id)" onmousedown="rightclk(event,this.id)" ondragstart="dragStart(this.id)" draggable="true" id="dragtarget" class="drags">Label</p>
+    <p onclick="Edit(this.id)" onmousedown="rightclk(event,this.id)" ondragstart="dragStart(this.id)" draggable="true" id="dragbutton" class="drags">Button</p>
+    <p onclick="Edit(this.id)" onmousedown="rightclk(event,this.id)" ondragstart="dragStart(this.id)" draggable="true" id="dragInput" class="drags">Text Input</p>
 </div>
 
 <div ondrop="drop(this.id)" ondragover="allowDrop(event)" id="drop"></div>
 <h2>Edit</h2>
 <p id="demo"></p>
 <p id="hello"></p>
-<input type ="text"id="inp">
-<br/>
-<input type="submit" id="sub" onclick="Click()">
+<div class="scroll">
+    Text:
+    <input type="text" id="inp">
+    <input type="submit" id="sub" onclick="Click()">
+    <br />
+    Margin Right:
+    <input class="edits" type="text" id="inpML">
+    <input type="submit" id="subMarL" onclick="ClickML()">
+    <br />
+    Margin Left:
+    <input type="text" id="inpMR">
+    <input class="edits" type="submit" id="subMarR" onclick="ClickMR()">
+    <br />
+    Margin Top:
+    <input type="text" id="inpMT">
+    <input class="edits" type="submit" id="subMarT" onclick="ClickMT()">
+    <br />
+    Margin Bottom:
+    <input type="text" id="inpMB">
+    <input class="edits" type="submit" id="subMarB" onclick="ClickMB()">
+</div>
 <script>
     var n = 1;
     var l = "";
     var ele = "";
     var hi = "";
+    var Ml = "";
+    var Mt = "";
+    var Mr = "";
+    var Mb = "";
+    var arr = [];
     function dragStart(Chose) {
         event.dataTransfer.setData("Text", event.target.id);
         l = Chose;
@@ -78,45 +114,79 @@
     function drop(chosen) {
         //alert(l);
         event.preventDefault();
-        
+
         if (l == document.getElementById("dragbutton").id) {
             cln = document.createElement("BUTTON");
             cln.innerHTML = "button";
             cln.id = "Button" + n.toString();
         }
-        else if(l == document.getElementById("dragInput").id){
+        else if (l == document.getElementById("dragInput").id) {
             cln = document.createElement("INPUT");
             cln.innerHTML = "Type here: ";
             cln.id = "Input" + n.toString();
         }
         else {
-            var data = document.getElementById(l),
-                cln = data.cloneNode(true);
+            cln = document.createElement("P");
+            cln.innerHTML = "Label";
             cln.id = "Label" + n.toString();
         }
-        cln.style.textAlign = "center";
+        var br = document.createElement("BR");
+        arr.push(cln.id);
+        document.getElementById("drop").appendChild(br);
+        cln.ondrag = function () { Above(this.id) };
         cln.onclick = function () { Edit(this.id) };
         cln.onmousedown = function () { rightclk(event, this.id) };
         document.getElementById("drop").appendChild(cln);
-        document.getElementById("hello").innerHTML = "Click the element you want to change then type your text in the input area bellow this text. Lastly press submit.";
-        //document.getElementById("demo").innerHTML = document.getElementById("Label" + n.toString()).id;
+        document.getElementById("hello").innerHTML = "Click the element you want to change then type your text in the input area bellow this text. Lastly press submit. You can delete elements in your website screen by right clicking.";
         n = n + 1;
     }
     function Edit(clicked_id) {
-        hi = clicked_id;
-        document.getElementById("demo").innerHTML = document.getElementById(hi).id;
+        if (document.getElementById(clicked_id).id != document.getElementById("dragtarget").id) {
+            if (document.getElementById(clicked_id).id != document.getElementById("dragInput").id) {
+                if (document.getElementById(clicked_id).id != document.getElementById("dragbutton").id) {
+                    hi = clicked_id;
+                    document.getElementById("demo").innerHTML = document.getElementById(hi).id;
+                }
+            }
+        }
     }
     function Click() {
-        
         ele = document.getElementById("inp").value;
-        document.getElementById(hi).innerHTML = ele;  
+        document.getElementById(hi).innerHTML = ele;
     }
-    function rightclk(event,click) {
+    function ClickML() {
+        Ml = document.getElementById("inpML").value;
+        document.getElementById(hi).style.marginLeft = Ml+"px";
+    }
+    function ClickMT() {
+        Mt = document.getElementById("inpMT").value;
+        document.getElementById(hi).style.marginTop = Mt+"px";
+    }
+    function ClickMR() {
+        Mr = document.getElementById("inpMR").value;
+        document.getElementById(hi).style.marginRight = Mr+"px";
+    }
+    function ClickMB() {
+        Mb = document.getElementById("inpMB").value;
+        document.getElementById(hi).style.marginBottom = Mb+"px";
+    }t
+    function rightclk(event, click) {
         if (event.button == 2) {
             var obj = document.getElementById(click);
             obj.remove();
         }
     }
-
+    function Above(rise) {
+        var list = document.getElementById("drop");
+        for (var a = 0; a < arr.length; a++) {
+            if (arr[a] == document.getElementById(rise).id && a != 0) {
+                var element = document.getElementById(rise);
+                var newItem = element.cloneNode(true);
+                newItem.onclick = function () { Edit(this.id) };
+                var el = document.getElementById(arr[a]);
+                el.remove();
+                list.insertBefore(newItem, list.childNodes[0]);
+            }
+        }
+    }
 </script>
-
