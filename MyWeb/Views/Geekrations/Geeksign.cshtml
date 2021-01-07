@@ -102,6 +102,7 @@
     var Mr = "";
     var Mb = "";
     var arr = [];
+    var arrI = "";
     function dragStart(Chose) {
         event.dataTransfer.setData("Text", event.target.id);
         l = Chose;
@@ -114,7 +115,6 @@
     function drop(chosen) {
         //alert(l);
         event.preventDefault();
-
         if (l == document.getElementById("dragbutton").id) {
             cln = document.createElement("BUTTON");
             cln.innerHTML = "button";
@@ -139,6 +139,7 @@
         document.getElementById("drop").appendChild(cln);
         document.getElementById("hello").innerHTML = "Click the element you want to change then type your text in the input area bellow this text. Lastly press submit. You can delete elements in your website screen by right clicking.";
         n = n + 1;
+
     }
     function Edit(clicked_id) {
         if (document.getElementById(clicked_id).id != document.getElementById("dragtarget").id) {
@@ -149,6 +150,12 @@
                 }
             }
         }
+        ele = document.getElementById("inp").value = document.getElementById(hi).innerHTML;
+        Ml = document.getElementById("inpML").value = document.getElementById(hi).style.marginLeft;
+        Mr = document.getElementById("inpMR").value = document.getElementById(hi).style.marginRight;
+        Mt = document.getElementById("inpMT").value = document.getElementById(hi).style.marginTop;
+        Mb = document.getElementById("inpMB").value = document.getElementById(hi).style.marginBottom;
+
     }
     function Click() {
         ele = document.getElementById("inp").value;
@@ -156,36 +163,45 @@
     }
     function ClickML() {
         Ml = document.getElementById("inpML").value;
-        document.getElementById(hi).style.marginLeft = Ml+"px";
+        document.getElementById(hi).style.marginLeft = Ml + "px";
     }
     function ClickMT() {
         Mt = document.getElementById("inpMT").value;
-        document.getElementById(hi).style.marginTop = Mt+"px";
+        document.getElementById(hi).style.marginTop = Mt + "px";
     }
     function ClickMR() {
         Mr = document.getElementById("inpMR").value;
-        document.getElementById(hi).style.marginRight = Mr+"px";
+        document.getElementById(hi).style.marginRight = Mr + "px";
     }
     function ClickMB() {
         Mb = document.getElementById("inpMB").value;
-        document.getElementById(hi).style.marginBottom = Mb+"px";
-    }t
+        document.getElementById(hi).style.marginBottom = Mb + "px";
+    }
     function rightclk(event, click) {
         if (event.button == 2) {
             var obj = document.getElementById(click);
             obj.remove();
         }
     }
+    var element = "";
+    var newItem = "";
+    function Hello() {
+        newItem.ondrag = function () { Above(this.id) };
+    }
     function Above(rise) {
         var list = document.getElementById("drop");
         for (var a = 0; a < arr.length; a++) {
             if (arr[a] == document.getElementById(rise).id && a != 0) {
-                var element = document.getElementById(rise);
-                var newItem = element.cloneNode(true);
+                element = document.getElementById(rise);
+                newItem = element.cloneNode(true);
                 newItem.onclick = function () { Edit(this.id) };
                 var el = document.getElementById(arr[a]);
                 el.remove();
-                list.insertBefore(newItem, list.childNodes[0]);
+                arrI = arr[a - 1];
+                arr[a - 1] = arr[a];
+                arr[a] = arrI;
+                list.insertBefore(newItem, list.childNodes[a - 1]);
+                Hello();
             }
         }
     }
