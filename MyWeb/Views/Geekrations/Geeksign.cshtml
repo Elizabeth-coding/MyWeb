@@ -40,7 +40,6 @@
     #dragbutton {
         margin-top: 30px;
         cursor: move;
-        z-index: 10;
     }
 
     #dragInput {
@@ -48,48 +47,58 @@
         width: 80px;
     }
 
-    div.scroll {
+    #dragImage {
+        margin-top: 30px;
+        width: 80px;
+        cursor: move;
+    }
+
+    #scroll {
+        background-color: #fed9ff;
+        width: 400px;
+        height: 300px;
         overflow-x: hidden;
         overflow-y: auto;
         text-align: center;
         padding: 20px;
     }
-
-    .edits {
-        margin-top: 20px;
-    }
 </style>
 <h2 id="main"></h2>
 
 <div class="droptarget" ondragover="allowDrop(event,this.id)" id="drag">
-    <p onclick="Edit(this.id)" onmousedown="rightclk(event,this.id)" ondragstart="dragStart(this.id)" draggable="true" id="dragtarget" class="drags">Label</p>
-    <p onclick="Edit(this.id)" onmousedown="rightclk(event,this.id)" ondragstart="dragStart(this.id)" draggable="true" id="dragbutton" class="drags">Button</p>
-    <p onclick="Edit(this.id)" onmousedown="rightclk(event,this.id)" ondragstart="dragStart(this.id)" draggable="true" id="dragInput" class="drags">Text Input</p>
+    <p ondragstart="dragStart(this.id)" draggable="true" id="dragtarget" class="drags">Label</p>
+    <p ondragstart="dragStart(this.id)" draggable="true" id="dragbutton" class="drags">Button</p>
+    <p ondragstart="dragStart(this.id)" draggable="true" id="dragInput" class="drags">Text Input</p>
+    <p ondragstart="dragStart(this.id)" draggable="true" id="dragImage" class="drags">Image</p>
 </div>
 
 <div ondrop="drop(this.id)" ondragover="allowDrop(event)" id="drop"></div>
 <h2>Edit</h2>
 <p id="demo"></p>
 <p id="hello"></p>
-<div class="scroll">
-    Text:
-    <input type="text" id="inp">
-    <input type="submit" id="sub" onclick="Click()">
+<div id="scroll">
+    <p class="edits">Image web link:</p>
+    <input class="edits" type="text" id="Inpsrc">
+    <input class="edits" type="submit" id="subWeb" onclick="ClickWeb()">
     <br />
-    Margin Right:
+    <p class="edits">Text:</p>
+    <input class="edits" type="text" id="inp">
+    <input class="edits" type="submit" id="sub" onclick="Click()">
+    <br />
+    <p class="edits"> Margin Right:</p>
     <input class="edits" type="text" id="inpML">
-    <input type="submit" id="subMarL" onclick="ClickML()">
+    <input class="edits" type="submit" id="subMarL" onclick="ClickML()">
     <br />
-    Margin Left:
-    <input type="text" id="inpMR">
+    <p class="edits">Margin Left:</p>
+    <input class="edits" type="text" id="inpMR">
     <input class="edits" type="submit" id="subMarR" onclick="ClickMR()">
     <br />
-    Margin Top:
-    <input type="text" id="inpMT">
+    <p class="edits">Margin Top:</p>
+    <input type="text" class="edits" id="inpMT">
     <input class="edits" type="submit" id="subMarT" onclick="ClickMT()">
     <br />
-    Margin Bottom:
-    <input type="text" id="inpMB">
+    <p class="edits">Margin Bottom:</p>
+    <input type="text" class="edits" id="inpMB">
     <input class="edits" type="submit" id="subMarB" onclick="ClickMB()">
 </div>
 <script>
@@ -103,6 +112,8 @@
     var Mb = "";
     var arr = [];
     var arrI = "";
+    var num = 1;
+    var tr = "false";
     function dragStart(Chose) {
         event.dataTransfer.setData("Text", event.target.id);
         l = Chose;
@@ -125,6 +136,12 @@
             cln.innerHTML = "Type here: ";
             cln.id = "Input" + n.toString();
         }
+        else if (l == document.getElementById("dragImage").id) {
+            cln = document.createElement("IMG");
+            cln.setAttribute("width", "100");
+            cln.setAttribute("height", "100");
+            cln.id = "Image" + n.toString();
+        }
         else {
             cln = document.createElement("P");
             cln.innerHTML = "Label";
@@ -133,7 +150,7 @@
         var br = document.createElement("BR");
         arr.push(cln.id);
         document.getElementById("drop").appendChild(br);
-        cln.ondrag = function () { Above(this.id) };
+        cln.ondblclick = function () { Above(this.id) };
         cln.onclick = function () { Edit(this.id) };
         cln.onmousedown = function () { rightclk(event, this.id) };
         document.getElementById("drop").appendChild(cln);
@@ -145,17 +162,39 @@
         if (document.getElementById(clicked_id).id != document.getElementById("dragtarget").id) {
             if (document.getElementById(clicked_id).id != document.getElementById("dragInput").id) {
                 if (document.getElementById(clicked_id).id != document.getElementById("dragbutton").id) {
-                    hi = clicked_id;
-                    document.getElementById("demo").innerHTML = document.getElementById(hi).id;
+                    if (document.getElementById(clicked_id).id != document.getElementById("dragImage").id) {
+                        hi = clicked_id;
+                        document.getElementById("demo").innerHTML = document.getElementById(hi).id;
+                    }
                 }
             }
+        }
+        var x = document.getElementById("scroll");
+        if (tr == "true") {
+            alert(tr+"1");
+            for (var b = 3; b <= 18; b++) {
+                x.getElementsByClassName("edits")[b].style.display = "none";
+            }
+            tr = "false";
+            
+        }
+        if (tr == "false") {
+            alert(tr);
+            for (var d = 0; d <= 3; d++) {
+                x.getElementsByClassName("edits")[d].style.display = "none";
+            }
+            for (var c = 3; c <= 18; c++) {
+                x.getElementsByClassName("edits")[c].style.display = "block";
+            }
+            
+            tr = "true";
+
         }
         ele = document.getElementById("inp").value = document.getElementById(hi).innerHTML;
         Ml = document.getElementById("inpML").value = document.getElementById(hi).style.marginLeft;
         Mr = document.getElementById("inpMR").value = document.getElementById(hi).style.marginRight;
         Mt = document.getElementById("inpMT").value = document.getElementById(hi).style.marginTop;
         Mb = document.getElementById("inpMB").value = document.getElementById(hi).style.marginBottom;
-
     }
     function Click() {
         ele = document.getElementById("inp").value;
@@ -177,6 +216,9 @@
         Mb = document.getElementById("inpMB").value;
         document.getElementById(hi).style.marginBottom = Mb + "px";
     }
+    function ClickWeb() {
+        document.getElementById(hi).setAttribute("src", document.getElementById("Inpsrc").value);
+    }
     function rightclk(event, click) {
         if (event.button == 2) {
             var obj = document.getElementById(click);
@@ -186,7 +228,8 @@
     var element = "";
     var newItem = "";
     function Hello() {
-        newItem.ondrag = function () { Above(this.id) };
+        newItem.ondblclick = function () { Above(this.id) };
+        newItem.onmousedown = function () { rightclk(event, this.id) };
     }
     function Above(rise) {
         var list = document.getElementById("drop");
