@@ -77,6 +77,7 @@
 <p id="demo"></p>
 <p id="hello"></p>
 <div id="scroll">
+    <p id="text"></p>
     <p class="edits">Image web link:</p>
     <input class="edits" type="text" id="Inpsrc">
     <input class="edits" type="submit" id="subWeb" onclick="ClickWeb()">
@@ -101,6 +102,8 @@
     <input type="text" class="edits" id="inpMB">
     <input class="edits" type="submit" id="subMarB" onclick="ClickMB()">
 </div>
+<h2  id="list"></h2>
+<button onclick="Update()">Update</button>
 <script>
     var n = 1;
     var l = "";
@@ -113,7 +116,9 @@
     var arr = [];
     var arrI = "";
     var num = 1;
-    var tr = "false";
+    var tr = "true";
+    var x = document.getElementById("scroll");
+    x.style.display = "none";
     function dragStart(Chose) {
         event.dataTransfer.setData("Text", event.target.id);
         l = Chose;
@@ -124,7 +129,6 @@
     }
 
     function drop(chosen) {
-        //alert(l);
         event.preventDefault();
         if (l == document.getElementById("dragbutton").id) {
             cln = document.createElement("BUTTON");
@@ -141,6 +145,7 @@
             cln.setAttribute("width", "100");
             cln.setAttribute("height", "100");
             cln.id = "Image" + n.toString();
+
         }
         else {
             cln = document.createElement("P");
@@ -156,8 +161,11 @@
         document.getElementById("drop").appendChild(cln);
         document.getElementById("hello").innerHTML = "Click the element you want to change then type your text in the input area bellow this text. Lastly press submit. You can delete elements in your website screen by right clicking.";
         n = n + 1;
-
+        x.style.display = "block";
+        
     }
+    
+    
     function Edit(clicked_id) {
         if (document.getElementById(clicked_id).id != document.getElementById("dragtarget").id) {
             if (document.getElementById(clicked_id).id != document.getElementById("dragInput").id) {
@@ -169,25 +177,26 @@
                 }
             }
         }
-        var x = document.getElementById("scroll");
-        if (tr == "true") {
-            alert(tr+"1");
-            for (var b = 3; b <= 18; b++) {
-                x.getElementsByClassName("edits")[b].style.display = "none";
-            }
-            tr = "false";
-            
-        }
-        if (tr == "false") {
-            alert(tr);
+        
+        if (x.getElementsByClassName("edits")[4].style.display === "none") {
+            document.getElementById("text").innerHTML = "Label & Button Settings: ";
             for (var d = 0; d <= 3; d++) {
                 x.getElementsByClassName("edits")[d].style.display = "none";
             }
             for (var c = 3; c <= 18; c++) {
                 x.getElementsByClassName("edits")[c].style.display = "block";
             }
-            
-            tr = "true";
+
+
+        }
+        else{
+            document.getElementById("text").innerHTML = "Image Settings: ";
+            for (var e = 0; e < 3; e++) {
+                x.getElementsByClassName("edits")[e].style.display = "block";
+            }
+            for (var b = 3; b <= 5; b++) {
+                x.getElementsByClassName("edits")[b].style.display = "none";
+            }
 
         }
         ele = document.getElementById("inp").value = document.getElementById(hi).innerHTML;
@@ -199,7 +208,38 @@
     function Click() {
         ele = document.getElementById("inp").value;
         document.getElementById(hi).innerHTML = ele;
+        var newItem = document.createElement("div");
+		newItem.innerHTML = document.getElementById("inp").value;
+        newItem.onclick = removeList;
+        newItem.id = n.toString();
+        alert(newItem.id);
+        n = n + 1;
+		document.getElementById("list").appendChild(newItem);
+		saveList();
+	}
+	function removeList(){
+		document.getElementById("list").removeChild(this);
+		saveList();
+		}
+		function saveList(){
+			localStorage.storedList = document.getElementById(n.toString()).innerHTML;
+			}
+			function loadList(){
+				document.getElementById("list").innerHTML = localStorage.storedList;
+				for(var i = 0; i>list.children.length; i++){
+					list.children[i].onclick = removeItem;
+					}
+					
+				}
+				if(localStorage.storedList){
+	loadList();
     }
+    function Update() {
+        document.getElementById("Label" + 1).innerHTML = document.getElementById("3").innerHTML;
+    }
+
+        
+    
     function ClickML() {
         Ml = document.getElementById("inpML").value;
         document.getElementById(hi).style.marginLeft = Ml + "px";
@@ -249,3 +289,5 @@
         }
     }
 </script>
+
+
