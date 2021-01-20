@@ -102,8 +102,11 @@
     <input type="text" class="edits" id="inpMB">
     <input class="edits" type="submit" id="subMarB" onclick="ClickMB()">
 </div>
-<h2  id="list"></h2>
+<h2 id="list"></h2>
+<h2 id="list2"></h2>
 <button onclick="Update()">Update</button>
+<p><button onclick="clickCounter()" type="button">Clear Storage</button></p>
+<div id="result"></div>
 <script>
     var n = 1;
     var l = "";
@@ -118,16 +121,15 @@
     var num = 1;
     var tr = "true";
     var x = document.getElementById("scroll");
+    document.getElementById("list").onclick = function () { removeList() };
     x.style.display = "none";
     function dragStart(Chose) {
         event.dataTransfer.setData("Text", event.target.id);
         l = Chose;
     }
-
     function allowDrop(event) {
         event.preventDefault();
     }
-
     function drop(chosen) {
         event.preventDefault();
         if (l == document.getElementById("dragbutton").id) {
@@ -145,7 +147,6 @@
             cln.setAttribute("width", "100");
             cln.setAttribute("height", "100");
             cln.id = "Image" + n.toString();
-
         }
         else {
             cln = document.createElement("P");
@@ -162,10 +163,10 @@
         document.getElementById("hello").innerHTML = "Click the element you want to change then type your text in the input area bellow this text. Lastly press submit. You can delete elements in your website screen by right clicking.";
         n = n + 1;
         x.style.display = "block";
-        
+
     }
-    
-    
+
+
     function Edit(clicked_id) {
         if (document.getElementById(clicked_id).id != document.getElementById("dragtarget").id) {
             if (document.getElementById(clicked_id).id != document.getElementById("dragInput").id) {
@@ -177,7 +178,7 @@
                 }
             }
         }
-        
+
         if (x.getElementsByClassName("edits")[4].style.display === "none") {
             document.getElementById("text").innerHTML = "Label & Button Settings: ";
             for (var d = 0; d <= 3; d++) {
@@ -186,10 +187,8 @@
             for (var c = 3; c <= 18; c++) {
                 x.getElementsByClassName("edits")[c].style.display = "block";
             }
-
-
         }
-        else{
+        else {
             document.getElementById("text").innerHTML = "Image Settings: ";
             for (var e = 0; e < 3; e++) {
                 x.getElementsByClassName("edits")[e].style.display = "block";
@@ -197,7 +196,6 @@
             for (var b = 3; b <= 5; b++) {
                 x.getElementsByClassName("edits")[b].style.display = "none";
             }
-
         }
         ele = document.getElementById("inp").value = document.getElementById(hi).innerHTML;
         Ml = document.getElementById("inpML").value = document.getElementById(hi).style.marginLeft;
@@ -209,37 +207,41 @@
         ele = document.getElementById("inp").value;
         document.getElementById(hi).innerHTML = ele;
         var newItem = document.createElement("div");
-		newItem.innerHTML = document.getElementById("inp").value;
-        newItem.onclick = removeList;
-        newItem.id = n.toString();
-        alert(newItem.id);
-        n = n + 1;
-		document.getElementById("list").appendChild(newItem);
-		saveList();
-	}
-	function removeList(){
-		document.getElementById("list").removeChild(this);
-		saveList();
-		}
-		function saveList(){
-			localStorage.storedList = document.getElementById(n.toString()).innerHTML;
-			}
-			function loadList(){
-				document.getElementById("list").innerHTML = localStorage.storedList;
-				for(var i = 0; i>list.children.length; i++){
-					list.children[i].onclick = removeItem;
-					}
-					
-				}
-				if(localStorage.storedList){
-	loadList();
+        newItem.innerHTML = document.getElementById("inp").value;
+        newItem.onclick = function () { removeList(this) };
+        localStorage.setItem("num", num);
+        document.getElementById("list2").innerHTML = localStorage.getItem("num");
+        newItem.id = localStorage.getItem("num");
+        num = num + 1;        
+        document.getElementById("list").appendChild(newItem);
+        saveList();
+    }
+   
+        function saveList() {
+            localStorage.storedList = document.getElementById("list").innerHTML;
+            }
+            function loadList() {
+                document.getElementById("list").innerHTML = localStorage.storedList;
+                
+                }
+                if (localStorage.storedList) {
+        loadList();
+    }
+    function removeList(clicker) {
+        var b = clicker.innerHTML;
+        alert(b);
+        
     }
     function Update() {
-        document.getElementById("Label" + 1).innerHTML = document.getElementById("3").innerHTML;
+        document.getElementById("Label" + 1).innerHTML = document.getElementById("1").innerHTML;        
     }
-
-        
-    
+    var l = 0;
+    function clickCounter() {
+        localStorage.clear();
+        num = 1;
+        document.getElementById("list").innerHTML = "";
+        document.getElementById("list2").innerHTML = "";
+    }
     function ClickML() {
         Ml = document.getElementById("inpML").value;
         document.getElementById(hi).style.marginLeft = Ml + "px";
@@ -289,5 +291,3 @@
         }
     }
 </script>
-
-
