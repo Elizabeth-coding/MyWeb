@@ -102,12 +102,14 @@
     <input type="text" class="edits" id="inpMB">
     <input class="edits" type="submit" id="subMarB" onclick="ClickMB()">
 </div>
-<h2 id="list"></h2>
 <h2 id="list2"></h2>
+<h2 id="list"></h2>
+
 <button onclick="Update()">Update</button>
 <p><button onclick="clickCounter()" type="button">Clear Storage</button></p>
 <div id="result"></div>
 <script>
+
     var n = 1;
     var l = "";
     var ele = "";
@@ -118,10 +120,11 @@
     var Mb = "";
     var arr = [];
     var arrI = "";
-    var num = 1;
+
+
     var tr = "true";
     var x = document.getElementById("scroll");
-    document.getElementById("list").onclick = function () { removeList() };
+
     x.style.display = "none";
     function dragStart(Chose) {
         event.dataTransfer.setData("Text", event.target.id);
@@ -163,10 +166,7 @@
         document.getElementById("hello").innerHTML = "Click the element you want to change then type your text in the input area bellow this text. Lastly press submit. You can delete elements in your website screen by right clicking.";
         n = n + 1;
         x.style.display = "block";
-
     }
-
-
     function Edit(clicked_id) {
         if (document.getElementById(clicked_id).id != document.getElementById("dragtarget").id) {
             if (document.getElementById(clicked_id).id != document.getElementById("dragInput").id) {
@@ -178,7 +178,6 @@
                 }
             }
         }
-
         if (x.getElementsByClassName("edits")[4].style.display === "none") {
             document.getElementById("text").innerHTML = "Label & Button Settings: ";
             for (var d = 0; d <= 3; d++) {
@@ -203,37 +202,39 @@
         Mt = document.getElementById("inpMT").value = document.getElementById(hi).style.marginTop;
         Mb = document.getElementById("inpMB").value = document.getElementById(hi).style.marginBottom;
     }
+    var num = parseInt(localStorage.getItem("num"))+1;
+    
     function Click() {
+        localStorage.setItem("num", num);
         ele = document.getElementById("inp").value;
         document.getElementById(hi).innerHTML = ele;
         var newItem = document.createElement("div");
-        newItem.innerHTML = document.getElementById("inp").value;
-        newItem.onclick = function () { removeList(this) };
-        localStorage.setItem("num", num);
+        newItem.innerHTML = document.getElementById("inp").value + " " + localStorage.getItem("num");
         document.getElementById("list2").innerHTML = localStorage.getItem("num");
-        newItem.id = localStorage.getItem("num");
-        num = num + 1;        
+        newItem.id = localStorage.getItem("num").toString();
+        num = num + 1;
         document.getElementById("list").appendChild(newItem);
         saveList();
+
     }
-   
-        function saveList() {
-            localStorage.storedList = document.getElementById("list").innerHTML;
-            }
-            function loadList() {
-                document.getElementById("list").innerHTML = localStorage.storedList;
-                
-                }
-                if (localStorage.storedList) {
+    function saveList() {
+        localStorage.storedList = document.getElementById("list").innerHTML;
+    }
+    function loadList() {
+        document.getElementById("list").innerHTML = localStorage.storedList;
+
+    }
+    if (localStorage.storedList) {
         loadList();
     }
+
     function removeList(clicker) {
         var b = clicker.innerHTML;
         alert(b);
-        
+
     }
     function Update() {
-        document.getElementById("Label" + 1).innerHTML = document.getElementById("1").innerHTML;        
+        document.getElementById("Label" + 1).innerHTML = document.getElementById("1").innerHTML;
     }
     var l = 0;
     function clickCounter() {
