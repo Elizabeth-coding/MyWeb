@@ -209,7 +209,7 @@
         ele = document.getElementById("inp").value;
         document.getElementById(hi).innerHTML = ele;
         var newItem = document.createElement("div");
-        newItem.innerHTML = document.getElementById("inp").value + " " + localStorage.getItem("num");
+        newItem.innerHTML = document.getElementById("inp").value;
         document.getElementById("list2").innerHTML = localStorage.getItem("num");
         newItem.id = localStorage.getItem("num").toString();
         num = num + 1;
@@ -234,7 +234,12 @@
 
     }
     function Update() {
-        document.getElementById("Label" + 1).innerHTML = document.getElementById("1").innerHTML;
+        for (var a = 1; a <= num; a++) {
+            var Element = document.createElement("P");
+            Element.innerHTML = document.getElementById(a.toString()).innerHTML;
+            document.getElementById("drop").appendChild(Element);
+        }
+       
     }
     var l = 0;
     function clickCounter() {
