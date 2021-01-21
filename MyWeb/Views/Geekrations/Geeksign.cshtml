@@ -110,7 +110,7 @@
 <div id="result"></div>
 <script>
 
-    var n = 1;
+   
     var l = "";
     var ele = "";
     var hi = "";
@@ -133,28 +133,30 @@
     function allowDrop(event) {
         event.preventDefault();
     }
+    var n = parseInt(localStorage.getItem("n")) + 1;
     function drop(chosen) {
-        event.preventDefault();
+        localStorage.setItem("n", n);
+        //alert(localStorage.getItem("n"));
         if (l == document.getElementById("dragbutton").id) {
             cln = document.createElement("BUTTON");
             cln.innerHTML = "button";
-            cln.id = "Button" + n.toString();
+            cln.id = "Button" + localStorage.getItem("n").toString();
         }
         else if (l == document.getElementById("dragInput").id) {
             cln = document.createElement("INPUT");
             cln.innerHTML = "Type here: ";
-            cln.id = "Input" + n.toString();
+            cln.id = "Input" + localStorage.getItem("n").toString();
         }
         else if (l == document.getElementById("dragImage").id) {
             cln = document.createElement("IMG");
             cln.setAttribute("width", "100");
             cln.setAttribute("height", "100");
-            cln.id = "Image" + n.toString();
+            cln.id = "Image" + localStorage.getItem("n").toString();
         }
         else {
             cln = document.createElement("P");
             cln.innerHTML = "Label";
-            cln.id = "Label" + n.toString();
+            cln.id = "Label" + localStorage.getItem("n").toString();
         }
         var br = document.createElement("BR");
         arr.push(cln.id);
@@ -202,14 +204,14 @@
         Mt = document.getElementById("inpMT").value = document.getElementById(hi).style.marginTop;
         Mb = document.getElementById("inpMB").value = document.getElementById(hi).style.marginBottom;
     }
-    var num = parseInt(localStorage.getItem("num"))+1;
-    
+    var num = parseInt(localStorage.getItem("num")) + 1;
+
     function Click() {
         localStorage.setItem("num", num);
         ele = document.getElementById("inp").value;
         document.getElementById(hi).innerHTML = ele;
         var newItem = document.createElement("div");
-        newItem.innerHTML = document.getElementById("inp").value;
+        newItem.innerHTML = document.getElementById("inp").value + " " + localStorage.getItem("num");
         document.getElementById("list2").innerHTML = localStorage.getItem("num");
         newItem.id = localStorage.getItem("num").toString();
         num = num + 1;
@@ -234,17 +236,19 @@
 
     }
     function Update() {
-        for (var a = 1; a <= num; a++) {
-            var Element = document.createElement("P");
-            Element.innerHTML = document.getElementById(a.toString()).innerHTML;
+        for (var a = 0; a < num; a++) {
+            var Element = document.createELement("P");
+            Element.innerHTML = "HI";
             document.getElementById("drop").appendChild(Element);
         }
-       
+        document.getElementById("Label" + 1).innerHTML = document.getElementById("1").innerHTML;
     }
     var l = 0;
     function clickCounter() {
         localStorage.clear();
         num = 1;
+        n = 1;
+        alert(localStorage.getItem("n"));
         document.getElementById("list").innerHTML = "";
         document.getElementById("list2").innerHTML = "";
     }
