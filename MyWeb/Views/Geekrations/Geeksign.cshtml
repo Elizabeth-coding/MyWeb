@@ -102,6 +102,7 @@
     <input type="text" class="edits" id="inpMB">
     <input class="edits" type="submit" id="subMarB" onclick="ClickMB()">
 </div>
+<h2 id="was"></h2>
 <h2 id="list2"></h2>
 <h2 id="list"></h2>
 
@@ -109,8 +110,6 @@
 <p><button onclick="clickCounter()" type="button">Clear Storage</button></p>
 <div id="result"></div>
 <script>
-
-   
     var l = "";
     var ele = "";
     var hi = "";
@@ -120,8 +119,6 @@
     var Mb = "";
     var arr = [];
     var arrI = "";
-
-
     var tr = "true";
     var x = document.getElementById("scroll");
 
@@ -133,7 +130,15 @@
     function allowDrop(event) {
         event.preventDefault();
     }
-    var n = parseInt(localStorage.getItem("n")) + 1;
+    var n = 1;
+    if (localStorage.getItem("n") == null) {
+        n = 1;
+    }
+    else {
+        n = parseInt(localStorage.getItem("n")) + 1;
+    }
+    
+    
     function drop(chosen) {
         localStorage.setItem("n", n);
         //alert(localStorage.getItem("n"));
@@ -169,6 +174,7 @@
         n = n + 1;
         x.style.display = "block";
     }
+    
     function Edit(clicked_id) {
         if (document.getElementById(clicked_id).id != document.getElementById("dragtarget").id) {
             if (document.getElementById(clicked_id).id != document.getElementById("dragInput").id) {
@@ -204,19 +210,38 @@
         Mt = document.getElementById("inpMT").value = document.getElementById(hi).style.marginTop;
         Mb = document.getElementById("inpMB").value = document.getElementById(hi).style.marginBottom;
     }
-    var num = parseInt(localStorage.getItem("num")) + 1;
+    var num = 1;
+    if (localStorage.getItem("num") == null) {
+        num = 1;
+    }
+    else {
+        num = parseInt(localStorage.getItem("n")) + 1;
+    }
 
     function Click() {
         localStorage.setItem("num", num);
         ele = document.getElementById("inp").value;
         document.getElementById(hi).innerHTML = ele;
         var newItem = document.createElement("div");
-        newItem.innerHTML = document.getElementById("inp").value + " " + localStorage.getItem("num");
+        newItem.innerHTML = document.getElementById("inp").value;
         document.getElementById("list2").innerHTML = localStorage.getItem("num");
         newItem.id = localStorage.getItem("num").toString();
         num = num + 1;
         document.getElementById("list").appendChild(newItem);
         saveList();
+
+    }
+    function Update() {
+        for (var a = 1; a <= num; a++) {
+            var Element = document.createElement("P");
+            Element.innerHTML = document.getElementById(a.toString()).innerHTML;
+            Element.id = "Label" + n.toString();
+            Element.ondblclick = function () { Above(this.id) };
+            Element.onclick = function () { Edit(this.id) };
+            Element.onmousedown = function () { rightclk(event, this.id) };
+            n = n + 1;
+            document.getElementById("drop").appendChild(Element);
+        }
 
     }
     function saveList() {
@@ -229,23 +254,13 @@
     if (localStorage.storedList) {
         loadList();
     }
-
-    function removeList(clicker) {
-        var b = clicker.innerHTML;
-        alert(b);
+    //n = parseInt(localStorage.getItem("n"))+1;
+    function removeList(clickers) {
+        var b = clickers.id;
+        document.getElementById("was").innerHTML = b;
 
     }
-    n = parseInt(localStorage.getItem("n")) + 1;
-    function Update() {
-        for (var a = 1; a <= num; a++) {
-            var Element = document.createElement("P");
-            Element.innerHTML = document.getElementById(a.toString()).innerHTML;
-            Element.id = "Label" + localStorage.getItem("n"); 
-            n = n + 1;
-            document.getElementById("drop").appendChild(Element);
-        }
-        
-    }
+    
     var l = 0;
     function clickCounter() {
         localStorage.clear();
