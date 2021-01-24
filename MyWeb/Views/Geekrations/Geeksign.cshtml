@@ -62,6 +62,20 @@
         text-align: center;
         padding: 20px;
     }
+    #scroll2 {
+        width: 40px;
+        height: 30px;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        text-align: center;
+        padding: 20px;
+    }
+    #list {
+        color: white;
+    }
+    #list2 {
+        color: white;
+    }
 </style>
 <h2 id="main"></h2>
 
@@ -102,12 +116,14 @@
     <input type="text" class="edits" id="inpMB">
     <input class="edits" type="submit" id="subMarB" onclick="ClickMB()">
 </div>
-<h2 id="was"></h2>
-<h2 id="list2"></h2>
-<h2 id="list"></h2>
-
-<button onclick="Update()">Update</button>
 <p><button onclick="clickCounter()" type="button">Clear Storage</button></p>
+<h2 id="was"></h2>
+<div id="scroll2">
+    <h2 id="list2"></h2>
+    <h2 id="list"></h2>
+</div>
+
+
 <div id="result"></div>
 <script>
     var l = "";
@@ -130,15 +146,7 @@
     function allowDrop(event) {
         event.preventDefault();
     }
-    var n = 1;
-    if (localStorage.getItem("n") == null) {
-        n = 1;
-    }
-    else {
-        n = parseInt(localStorage.getItem("n")) + 1;
-    }
-    
-    
+    var n = parseInt(localStorage.getItem("n")) + 1;
     function drop(chosen) {
         localStorage.setItem("n", n);
         //alert(localStorage.getItem("n"));
@@ -174,7 +182,6 @@
         n = n + 1;
         x.style.display = "block";
     }
-    
     function Edit(clicked_id) {
         if (document.getElementById(clicked_id).id != document.getElementById("dragtarget").id) {
             if (document.getElementById(clicked_id).id != document.getElementById("dragInput").id) {
@@ -210,51 +217,24 @@
         Mt = document.getElementById("inpMT").value = document.getElementById(hi).style.marginTop;
         Mb = document.getElementById("inpMB").value = document.getElementById(hi).style.marginBottom;
     }
-    var num = 1;
-    if (localStorage.getItem("num") == null) {
-        num = 1;
-    }
-    else {
-        num = parseInt(localStorage.getItem("n")) + 1;
-    }
-    var newItem = "";
+    var num = parseInt(localStorage.getItem("num")) + 1;
+
     function Click() {
         localStorage.setItem("num", num);
         ele = document.getElementById("inp").value;
         document.getElementById(hi).innerHTML = ele;
-        newItem = document.createElement("div");
+        var newItem = document.createElement("div");
         newItem.innerHTML = document.getElementById("inp").value;
-        document.getElementById("list2").innerHTML = localStorage.getItem("num");
-        newItem.id = localStorage.getItem("num").toString();
         newItem.style.marginLeft = document.getElementById("inpML").value + "px";
         newItem.style.marginRight = document.getElementById("inpMR").value + "px";
         newItem.style.marginTop = document.getElementById("inpMT").value + "px";
         newItem.style.marginBottom = document.getElementById("inpMB").value + "px";
+        document.getElementById("list2").innerHTML = localStorage.getItem("num");
+        newItem.id = localStorage.getItem("num").toString();
         num = num + 1;
         document.getElementById("list").appendChild(newItem);
         saveList();
 
-    }
-    var Element = "";
-    function Update() {
-        document.getElementById("hello").innerHTML = "Click the element you want to change then type your text in the input area bellow this text. Lastly press submit. You can delete elements in your website screen by right clicking.";
-        x.style.display = "block";
-        for (var b = 1; b <= num; b++) {
-            Element = document.createElement("P");
-            Element.innerHTML = document.getElementById(b.toString()).innerHTML;
-            Element.style.marginLeft = document.getElementById(b.toString()).style.marginLeft;
-            Element.style.marginRight = document.getElementById(b.toString()).style.marginRight;
-            Element.style.marginTop = document.getElementById(b.toString()).style.marginTop;
-            Element.style.marginBottom = document.getElementById(b.toString()).style.marginBottom;
-            Element.id = "Label" + n.toString();
-            Element.ondblclick = function () { Above(this.id) };
-            Element.onclick = function () { Edit(this.id) };
-            Element.onmousedown = function () { rightclk(event, this.id) };
-            n = n + 1;
-            arr.push(Element.id);
-            document.getElementById("drop").appendChild(Element);
-        }
-        
     }
     function saveList() {
         localStorage.storedList = document.getElementById("list").innerHTML;
@@ -266,13 +246,33 @@
     if (localStorage.storedList) {
         loadList();
     }
-    //n = parseInt(localStorage.getItem("n"))+1;
+    var n2 = 1;
+    function Update() {
+        document.getElementById("hello").innerHTML = "Click the element you want to change then type your text in the input area bellow this text. Lastly press submit. You can delete elements in your website screen by right clicking.";
+        x.style.display = "block";
+        for (var a = 1; a <= num; a++) {
+            var Element = document.createElement("P");
+            Element.id = "Label" + " " + n2.toString();
+            Element.innerHTML = document.getElementById(a.toString()).innerHTML;
+            //Element.style.marginLeft = document.getElementById(b.toString()).style.marginLeft;
+            //Element.style.marginRight = document.getElementById(b.toString()).style.marginRight;
+            //Element.style.marginTop = document.getElementById(b.toString()).style.marginTop;
+            //Element.style.marginBottom = document.getElementById(b.toString()).style.marginBottom;
+            n2 = n2 + 1;
+            Element.ondblclick = function () { Above(this.id) };
+            Element.onclick = function () { Edit(this.id) };
+            Element.onmousedown = function () { rightclk(event, this.id) };
+
+            document.getElementById("drop").appendChild(Element);
+        }
+
+    }
     function removeList(clickers) {
         var b = clickers.id;
         document.getElementById("was").innerHTML = b;
 
     }
-    
+
     var l = 0;
     function clickCounter() {
         localStorage.clear();
@@ -284,7 +284,6 @@
     function ClickML() {
         Ml = document.getElementById("inpML").value;
         document.getElementById(hi).style.marginLeft = Ml + "px";
-        
     }
     function ClickMT() {
         Mt = document.getElementById("inpMT").value;
@@ -301,6 +300,7 @@
     function ClickWeb() {
         document.getElementById(hi).setAttribute("src", document.getElementById("Inpsrc").value);
     }
+    Update();
     function rightclk(event, click) {
         if (event.button == 2) {
             var obj = document.getElementById(click);
