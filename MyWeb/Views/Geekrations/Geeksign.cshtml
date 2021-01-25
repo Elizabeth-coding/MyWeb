@@ -62,6 +62,7 @@
         text-align: center;
         padding: 20px;
     }
+
     #scroll2 {
         width: 40px;
         height: 30px;
@@ -70,9 +71,11 @@
         text-align: center;
         padding: 20px;
     }
+
     #list {
         color: white;
     }
+
     #list2 {
         color: white;
     }
@@ -146,7 +149,14 @@
     function allowDrop(event) {
         event.preventDefault();
     }
-    var n = parseInt(localStorage.getItem("n")) + 1;
+    var n = 1;
+    if (localStorage.getItem("n") == null) {
+        n = 1;
+    }
+    else {
+        n = parseInt(localStorage.getItem("n")) + 1;
+    }
+
     function drop(chosen) {
         localStorage.setItem("n", n);
         //alert(localStorage.getItem("n"));
@@ -217,7 +227,14 @@
         Mt = document.getElementById("inpMT").value = document.getElementById(hi).style.marginTop;
         Mb = document.getElementById("inpMB").value = document.getElementById(hi).style.marginBottom;
     }
-    var num = parseInt(localStorage.getItem("num")) + 1;
+    var num = 1;
+    if (localStorage.getItem("num") == null) {
+        num = 1;
+    }
+    else {
+        num = parseInt(localStorage.getItem("n")) + 1;
+    }
+
 
     function Click() {
         localStorage.setItem("num", num);
@@ -254,10 +271,6 @@
             var Element = document.createElement("P");
             Element.id = "Label" + " " + n2.toString();
             Element.innerHTML = document.getElementById(a.toString()).innerHTML;
-            //Element.style.marginLeft = document.getElementById(b.toString()).style.marginLeft;
-            //Element.style.marginRight = document.getElementById(b.toString()).style.marginRight;
-            //Element.style.marginTop = document.getElementById(b.toString()).style.marginTop;
-            //Element.style.marginBottom = document.getElementById(b.toString()).style.marginBottom;
             n2 = n2 + 1;
             Element.ondblclick = function () { Above(this.id) };
             Element.onclick = function () { Edit(this.id) };
@@ -331,3 +344,4 @@
         }
     }
 </script>
+
