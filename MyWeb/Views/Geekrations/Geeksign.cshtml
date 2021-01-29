@@ -63,17 +63,10 @@
         padding: 20px;
     }
 
-    #scroll2 {
-        width: 40px;
-        height: 30px;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        text-align: center;
-        padding: 20px;
-    }
+    
 
     #list {
-        color: white;
+        color: black;
     }
 
     #list2 {
@@ -118,6 +111,8 @@
     <p class="edits">Margin Bottom:</p>
     <input type="text" class="edits" id="inpMB">
     <input class="edits" type="submit" id="subMarB" onclick="ClickMB()">
+    <br />
+    <button id="save" onclick="Save()">Save</button>
 </div>
 <p><button onclick="clickCounter()" type="button">Clear Storage</button></p>
 <h2 id="was"></h2>
@@ -232,14 +227,16 @@
         num = 1;
     }
     else {
-        num = parseInt(localStorage.getItem("n")) + 1;
+        num = parseInt(localStorage.getItem("num")) + 1;
     }
 
 
     function Click() {
-        localStorage.setItem("num", num);
         ele = document.getElementById("inp").value;
         document.getElementById(hi).innerHTML = ele;
+    }
+    function Save() {
+        localStorage.setItem("num", num);
         var newItem = document.createElement("div");
         newItem.innerHTML = document.getElementById("inp").value;
         newItem.style.marginLeft = document.getElementById("inpML").value + "px";
@@ -251,40 +248,58 @@
         num = num + 1;
         document.getElementById("list").appendChild(newItem);
         saveList();
-
-    }
-    function saveList() {
-        localStorage.storedList = document.getElementById("list").innerHTML;
-    }
-    function loadList() {
-        document.getElementById("list").innerHTML = localStorage.storedList;
-
-    }
-    if (localStorage.storedList) {
-        loadList();
     }
     var n2 = 1;
     function Update() {
         document.getElementById("hello").innerHTML = "Click the element you want to change then type your text in the input area bellow this text. Lastly press submit. You can delete elements in your website screen by right clicking.";
         x.style.display = "block";
-        for (var a = 1; a <= num; a++) {
+        for (var a = next; a <= num; a++) {
             var Element = document.createElement("P");
             Element.id = "Label" + " " + n2.toString();
             Element.innerHTML = document.getElementById(a.toString()).innerHTML;
             n2 = n2 + 1;
             Element.ondblclick = function () { Above(this.id) };
             Element.onclick = function () { Edit(this.id) };
-            Element.onmousedown = function () { rightclk(event, this.id) };
-
+            Element.onmousedown = removeList;
+            //Element.onmousedown = function () { rightclk(event, this.id) };
+            arr.push(Element.id);
             document.getElementById("drop").appendChild(Element);
         }
 
     }
-    function removeList(clickers) {
-        var b = clickers.id;
-        document.getElementById("was").innerHTML = b;
+    var next = 1;
+    if (localStorage.getItem("next") == null) {
+        next = 1;
+    }
+    else {
+        next = parseInt(localStorage.getItem("next")) + 1;
+    }
+    function removeList(clicks) {
+        localStorage.setItem("next",next)
+        document.getElementById("list").removeChild(document.getElementById(next.toString()));
+        alert(num);
+        if (num == 0) {
+            next = 1
+        }
+        else {
+            next = next + 1;
+        }
+        saveList();
+    }
+    function saveList() {
+        localStorage.storedList = document.getElementById("list").innerHTML;
+    }
+    function loadList() {
+        document.getElementById("list").innerHTML = localStorage.storedList;
+        for (var i = 0; i > list.children.length; i++) {
+            list.children[i] = removeItem;
+       }
 
     }
+    if (localStorage.storedList) {
+        loadList();
+    }
+    
 
     var l = 0;
     function clickCounter() {
@@ -318,6 +333,7 @@
         if (event.button == 2) {
             var obj = document.getElementById(click);
             obj.remove();
+            //removeItem();
         }
     }
     var element = "";
@@ -344,4 +360,5 @@
         }
     }
 </script>
+
 
