@@ -16,7 +16,7 @@ namespace MyWeb.Migrations
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.1");
+                .HasAnnotation("ProductVersion", "5.0.2");
 
             modelBuilder.Entity("MyWeb.Models.Geekration", b =>
                 {
@@ -46,9 +46,11 @@ namespace MyWeb.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("geeky1")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("geeky2")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

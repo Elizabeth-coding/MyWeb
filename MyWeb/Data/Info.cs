@@ -16,5 +16,7 @@ namespace MyWeb.Data
         }
 
         public DbSet<Geekration> Geekration { get; set; }
+        
+
     }
 }

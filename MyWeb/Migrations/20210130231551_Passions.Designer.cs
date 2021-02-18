@@ -9,8 +9,8 @@ using MyWeb.Data;
 namespace MyWeb.Migrations
 {
     [DbContext(typeof(Info))]
-    [Migration("20201230220210_geeky2")]
-    partial class geeky2
+    [Migration("20210130231551_Passions")]
+    partial class Passions
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -18,7 +18,7 @@ namespace MyWeb.Migrations
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.1");
+                .HasAnnotation("ProductVersion", "5.0.2");
 
             modelBuilder.Entity("MyWeb.Models.Geekration", b =>
                 {
@@ -48,9 +48,11 @@ namespace MyWeb.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("geeky1")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("geeky2")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

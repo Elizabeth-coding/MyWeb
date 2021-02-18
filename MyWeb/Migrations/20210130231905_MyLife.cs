@@ -6,18 +6,12 @@ namespace MyWeb.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<string>(
-                name: "MyLife",
-                table: "Geekration",
-                type: "nvarchar(max)",
-                nullable: true);
+
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "MyLife",
-                table: "Geekration");
+
         }
     }
 }

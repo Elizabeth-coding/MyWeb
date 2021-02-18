@@ -12,9 +12,13 @@ namespace MyWeb.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Passions = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Hobbies = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Your_Values = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Passions = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Hobbies = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Your_Values = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Change = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MyLife = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    geeky1 = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    geeky2 = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
