@@ -1,4 +1,4 @@
-
+@model MyWeb.Models.Geekration
 @{
     ViewData["Title"] = "Geeksign";
 }
@@ -75,8 +75,10 @@
         color: white;
     }
 </style>
-<h2 id="main"></h2>
 
+
+
+<h2 id="main">@Html.DisplayFor(model => model.Passions)</h2>
 <div class="droptarget" ondragover="allowDrop(event,this.id)" id="drag">
     <p ondragstart="dragStart(this.id)" draggable="true" id="dragtarget" class="drags">Label</p>
     <p ondragstart="dragStart(this.id)" draggable="true" id="dragbutton" class="drags">Button</p>
@@ -114,13 +116,17 @@
     <input type="text" class="edits" id="inpMB">
     <input class="edits" type="submit" id="subMarB" onclick="ClickMB()">
     <br />
-    
+
 </div>
 <p><button onclick="clickCounter()" type="button">Clear Storage</button></p>
 <h2 id="was"></h2>
 <div id="scroll2">
     <h2 id="list2"></h2>
     <h2 id="list"></h2>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
 </div>
 
 
@@ -137,7 +143,7 @@
     var arrI = "";
     var tr = "true";
     var x = document.getElementById("scroll");
-
+    var storage = document.getElementById("main").innerHTML;
     x.style.display = "none";
     function dragStart(Chose) {
         event.dataTransfer.setData("Text", event.target.id);
@@ -147,36 +153,35 @@
         event.preventDefault();
     }
     var n = 1;
-    if (localStorage.getItem("n") == null) {
+    if (localStorage.getItem("n"+storage) == null) {
         n = 1;
     }
     else {
-        n = parseInt(localStorage.getItem("n")) + 1;
+        n = parseInt(localStorage.getItem("n" + storage)) + 1;
     }
 
     function drop(chosen) {
-        localStorage.setItem("n", n);
-        //alert(localStorage.getItem("n"));
+        localStorage.setItem("n" + storage, n);
         if (l == document.getElementById("dragbutton").id) {
             cln = document.createElement("BUTTON");
             cln.innerHTML = "button";
-            cln.id = "Button" + localStorage.getItem("n").toString();
+            cln.id = "Button" + localStorage.getItem("n" + storage).toString();
         }
         else if (l == document.getElementById("dragInput").id) {
             cln = document.createElement("INPUT");
             cln.innerHTML = "Type here: ";
-            cln.id = "Input" + localStorage.getItem("n").toString();
+            cln.id = "Input" + localStorage.getItem("n" + storage).toString();
         }
         else if (l == document.getElementById("dragImage").id) {
             cln = document.createElement("IMG");
             cln.setAttribute("width", "100");
             cln.setAttribute("height", "100");
-            cln.id = "Image" + localStorage.getItem("n").toString();
+            cln.id = "Image" + localStorage.getItem("n" + storage).toString();
         }
         else {
             cln = document.createElement("P");
             cln.innerHTML = "Label";
-            cln.id = "Label" + localStorage.getItem("n").toString();
+            cln.id = "Label" + localStorage.getItem("n" + storage).toString();
         }
         var br = document.createElement("BR");
         arr.push(cln.id);
@@ -226,30 +231,39 @@
         Mb = document.getElementById("inpMB").value = document.getElementById(hi).style.marginBottom;
     }
     var num = 1;
-    if (localStorage.getItem("num") == null) {
+    if (localStorage.getItem("num" + storage) == null) {
         num = 1;
     }
     else {
-        num = parseInt(localStorage.getItem("num")) + 1;
+        num = parseInt(localStorage.getItem("num" + storage)) + 1;
     }
 
 
     function Click() {
         ele = document.getElementById("inp").value;
         document.getElementById(hi).innerHTML = ele;
+        var why6 = document.getElementById(hi).id;
+        var letnum6 = "";
+        for (var i6 = 0; i6 < why6.length; i6++) {
+            if (isNaN(why6.substring(i6, i6 + 1)) == false && why6.substring(i6, i6 + 1) != " ") {
+                letnum6 = letnum6 + why6.substring(i6, i6 + 1);
+            }
+        }
+        document.getElementById(letnum6).innerHTML = ele;
+        saveList();
     }
     var newItem = "";
     function Save(saved) {
-        alert(saved);
-        localStorage.setItem("num", num);
+
+        localStorage.setItem("num" + storage, num);
         newItem = document.createElement("p");
-        newItem.innerHTML = document.getElementById(saved).innerHTML+ num.toString();
+        newItem.innerHTML = document.getElementById(saved).innerHTML + num.toString();
         newItem.style.marginLeft = document.getElementById(saved).style.marginLeft;
         newItem.style.marginRight = document.getElementById(saved).style.marginRight;
         newItem.style.marginTop = document.getElementById(saved).style.marginTop;
         newItem.style.marginBottom = document.getElementById(saved).style.marginBottom;
         //document.getElementById("list2").innerHTML = localStorage.getItem("num");
-        newItem.id = localStorage.getItem("num").toString();
+        newItem.id = localStorage.getItem("num" + storage).toString();
         if (document.getElementById(saved).id.substring(0, 1) == "B") {
             newItem.className = "btn";
         }
@@ -258,8 +272,9 @@
         }
         if (document.getElementById(saved).id.substring(0, 2) == "Im") {
             newItem.className = "img";
+            newItem.src = document.getElementById(saved).src;
         }
-        alert(newItem.className);
+
         num = num + 1;
         document.getElementById("list").appendChild(newItem);
         saveList();
@@ -275,7 +290,7 @@
             s = s + 1;
             doc = document.getElementById(k.toString());
             if (doc != null) {
-                alert(doc.className);
+
                 if (document.getElementById(k.toString()).className == "btn") {
                     Element = document.createElement("BUTTON");
                     Element.id = "Button" + " " + s.toString();
@@ -289,10 +304,9 @@
                     Element.setAttribute("width", "100");
                     Element.setAttribute("height", "100");
                     Element.id = "Image" + " " + s.toString();
-                    Element.setAttribute("src", doc.src);
-                    alert(doc.src);
+                    Element.src = doc.innerHTML;
                 }
-                
+
                 else {
                     Element = document.createElement("P");
                     Element.id = "Label" + " " + s.toString();
@@ -315,14 +329,14 @@
 
     }
     var next = 1;
-    if (localStorage.getItem("next") == null) {
+    if (localStorage.getItem("next" + storage) == null) {
         next = 0;
     }
     else {
-        next = parseInt(localStorage.getItem("next"));
+        next = parseInt(localStorage.getItem("next" + storage));
     }
     function removeList(clicks) {
-        localStorage.setItem("next", next)
+        localStorage.setItem("next" + storage, next)
         if (event.button == 2) {
             var let = this.id;
             var letter = "";
@@ -338,17 +352,20 @@
             saveList();
         }
     }
+    
+
+
     function saveList() {
-        localStorage.storedList = document.getElementById("list").innerHTML;
+        localStorage.setItem(storage, document.getElementById("list").innerHTML);
     }
     function loadList() {
-        document.getElementById("list").innerHTML = localStorage.storedList;
+        document.getElementById("list").innerHTML = localStorage.getItem(storage);
         for (var i = 0; i > list.children.length; i++) {
             list.children[i] = removeItem;
         }
 
     }
-    if (localStorage.storedList) {
+    if (localStorage.getItem(storage)) {
         loadList();
     }
 
@@ -366,7 +383,7 @@
         document.getElementById(hi).style.marginLeft = Ml + "px";
         var why1 = document.getElementById(hi).id;
         var letnum1 = "";
-        for (var i1 = 0; i1 < num; i1++) {
+        for (var i1 = 0; i1 < why1.length; i1++) {
             if (isNaN(why1.substring(i1, i1 + 1)) == false && why1.substring(i1, i1 + 1) != " ") {
                 letnum1 = letnum1 + why1.substring(i1, i1 + 1);
             }
@@ -379,9 +396,10 @@
         document.getElementById(hi).style.marginTop = Mt + "px";
         var why2 = document.getElementById(hi).id;
         var letnum2 = "";
-        for (var i2 = 0; i2 < num; i2++) {
+        for (var i2 = 0; i2 < why2.length; i2++) {
             if (isNaN(why2.substring(i2, i2 + 1)) == false && why2.substring(i2, i2 + 1) != " ") {
                 letnum2 = letnum2 + why2.substring(i2, i2 + 1);
+
             }
         }
         document.getElementById(letnum2).style.marginTop = Mt + "px";
@@ -392,7 +410,7 @@
         document.getElementById(hi).style.marginRight = Mr + "px";
         var why3 = document.getElementById(hi).id;
         var letnum3 = "";
-        for (var i3 = 0; i3 < num; i3++) {
+        for (var i3 = 0; i3 < why3.length; i3++) {
             if (isNaN(why3.substring(i3, i3 + 1)) == false && why3.substring(i3, i3 + 1) != " ") {
                 letnum3 = letnum3 + why3.substring(i3, i3 + 1);
             }
@@ -405,7 +423,7 @@
         document.getElementById(hi).style.marginBottom = Mb + "px";
         var why4 = document.getElementById(hi).id;
         var letnum4 = "";
-        for (var i4 = 0; i4 < num; i4++) {
+        for (var i4 = 0; i4 < why4.length; i4++) {
             if (isNaN(why4.substring(i4, i4 + 1)) == false && why4.substring(i4, i4 + 1) != " ") {
                 letnum4 = letnum4 + why4.substring(i4, i4 + 1);
             }
@@ -414,18 +432,21 @@
         saveList();
     }
     function ClickWeb() {
-        document.getElementById(hi).setAttribute("src", document.getElementById("Inpsrc").value);
+        var inpsrc = document.getElementById("Inpsrc").value;
+        document.getElementById(hi).src = inpsrc;
         var why5 = document.getElementById(hi).id;
         var letnum5 = "";
-        for (var i5 = 0; i5 < num; i5++) {
+        for (var i5 = 0; i5 < why5.length; i5++) {
             if (isNaN(why5.substring(i5, i5 + 1)) == false && why5.substring(i5, i5 + 1) != " ") {
                 letnum5 = letnum5 + why5.substring(i5, i5 + 1);
-                
+
             }
         }
-        document.getElementById(letnum5).src =  document.getElementById("Inpsrc").value;
-        alert(document.getElementById(letnum5).src);
+
+        document.getElementById(letnum5).innerHTML = inpsrc;
+
         saveList();
+
     }
     Update();
     function rightclk(event, click) {
@@ -459,6 +480,9 @@
         }
     }
 </script>
+
+
+
 
 
 
