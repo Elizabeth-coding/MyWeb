@@ -23,5 +23,6 @@ namespace MyWeb.Models
         public string geeky1 { get; set; }
         [Required]
         public string geeky2 { get; set; }
+
     }
 }

@@ -50,13 +50,25 @@ namespace MyWeb.Controllers
 
             return View(geekration);
         }
+        public async Task<IActionResult> Geeksign(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var geekration = await _context.Geekration
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (geekration == null)
+            {
+                return NotFound();
+            }
+
+            return View(geekration);
+        }
 
         // GET: Geekrations/Create
         public IActionResult Create()
-        {
-            return View();
-        }
-        public IActionResult Geeksign()
         {
             return View();
         }
