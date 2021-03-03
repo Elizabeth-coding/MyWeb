@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Geekration";
+}
+<style>
+    body{
+        text-align: center;
+    }
+</style>
+<h1>Geekration</h1>
+<h2 id="list"></h2>
+<button id="add" onclick="addnew()">Add</button>
+<script>
+    var user = localStorage.getItem("username" + localStorage.getItem("num"));
+    document.getElementById("list").id = user;
+    var num = 1;
+    if (localStorage.getItem("num") == null) {
+        num = 1;
+    }
+    else {
+        num = parseInt(localStorage.getItem("num")) + 1;
+    }
+
+    function addnew() { 
+        localStorage.setItem("num", num);
+        var newitem = document.createElement("H3");
+        newitem.id = num;
+        document.getElementById(user).appendChild(newitem);
+        num = num + 1;
+        saveList();
+    }
+    function saveList() {
+        localStorage.setItem("save", document.getElementById(user).innerHTML);
+        updateList();
+    }
+    function updateList() {
+        document.getElementById(user).innerHTML = localStorage.getItem("save");
+    }
+
+</script>
