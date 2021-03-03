@@ -1,4 +1,4 @@
-﻿@model MyWeb.Models.Geekration
+@model MyWeb.Models.Geekration
 @{
     ViewData["Title"] = "Geeksign";
 }
@@ -77,10 +77,9 @@
     #list2 {
         color: white;
     }
-    
 </style>
-<div id="whole">
-<h2 id="main"> First screen of your website @Html.DisplayFor(model => model.Passions)</h2>
+<h2 id="main"></h2>
+
 <div class="droptarget" ondragover="allowDrop(event,this.id)" id="drag">
     <p ondragstart="dragStart(this.id)" draggable="true" id="dragtarget" class="drags">Label</p>
     <p ondragstart="dragStart(this.id)" draggable="true" id="dragbutton" class="drags">Button</p>
@@ -127,9 +126,6 @@
     <h2 id="list"></h2>
 </div>
 
-<div>
-    <a id = "back" asp-action="Index">Back to List</a>
-</div>
 
 
 <div id="result"></div>
@@ -272,6 +268,7 @@
 
         localStorage.setItem("num" + storage, num);
         newItem = document.createElement("p");
+        newItem.innerHTML = document.getElementById(saved).innerHTML+ num.toString();
         newItem.style.marginLeft = document.getElementById(saved).style.marginLeft;
         newItem.style.marginRight = document.getElementById(saved).style.marginRight;
         newItem.style.marginTop = document.getElementById(saved).style.marginTop;
@@ -290,10 +287,7 @@
             newItem.className = "img";
             newItem.src = document.getElementById(saved).src;
         }
-        else {
-            newItem.innerHTML = document.getElementById(saved).innerHTML;
-        }
-
+        alert(newItem.className);
         num = num + 1;
         document.getElementById("list").appendChild(newItem);
         saveList();
@@ -309,8 +303,8 @@
             doc = document.getElementById("list").childNodes[k];
             
             if (doc != null) {
-                
-                if (doc.className == "btn") {
+                alert(doc.className);
+                if (document.getElementById(k.toString()).className == "btn") {
                     Element = document.createElement("BUTTON");
                     Element.id = "Button" +""+doc.id;
                 }
@@ -322,14 +316,9 @@
                     Element = document.createElement("IMG");
                     Element.setAttribute("width", "100");
                     Element.setAttribute("height", "100");
-                    Element.id = "Image" + "" + doc.id;
-                    if (doc.innerHTML == "") {
-                        Element.src = "http://cdn.onlinewebfonts.com/svg/img_94880.png";
-                    }
-                    else {
-                        Element.src = doc.innerHTML;
-                    }
-                    
+                    Element.id = "Image" + " " + s.toString();
+                    Element.setAttribute("src", doc.src);
+                    alert(doc.src);
                 }
 
                 else {
@@ -459,8 +448,7 @@
         saveList();
     }
     function ClickWeb() {
-        inpsrc = document.getElementById("Inpsrc").value;
-        document.getElementById(hi).src = inpsrc;
+        document.getElementById(hi).setAttribute("src", document.getElementById("Inpsrc").value);
         var why5 = document.getElementById(hi).id;
         var letnum5 = "";
         for (var i5 = 0; i5 < why5.length; i5++) {
