@@ -1,3 +1,4 @@
+
 @model MyWeb.Models.Geekration
 @{
     ViewData["Title"] = "Geeksign";
@@ -6,10 +7,7 @@
     h1 {
         text-align: center;
     }
-    body {
-        display: grid;
-        grid-template-rows: auto 1fr auto;
-    }
+
     .droptarget {
         text-align: center;
         float: left;
@@ -66,9 +64,11 @@
         text-align: center;
         padding: 20px;
     }
+
     #clear {
         display: none;
     }
+
     #list {
         color: white;
         display: none;
@@ -78,8 +78,7 @@
         color: white;
     }
 </style>
-<h2 id="main"></h2>
-
+<h2 id="main">@Html.DisplayFor(model => model.Passions)</h2>
 <div class="droptarget" ondragover="allowDrop(event,this.id)" id="drag">
     <p ondragstart="dragStart(this.id)" draggable="true" id="dragtarget" class="drags">Label</p>
     <p ondragstart="dragStart(this.id)" draggable="true" id="dragbutton" class="drags">Button</p>
@@ -101,7 +100,7 @@
     <input class="edits" type="text" id="inp">
     <input class="edits" type="submit" id="sub" onclick="Click()">
     <br />
-    <p class="edits" > Margin Right:</p>
+    <p class="edits"> Margin Right:</p>
     <input class="edits" type="text" id="inpML">
     <input class="edits" type="submit" id="subMarL" onclick="ClickML()">
     <br />
@@ -119,18 +118,21 @@
     <br />
 
 </div>
-<p><button onclick="clickCounter()" id ="clear" type="button">Clear Storage</button></p>
+<p><button onclick="clickCounter()" id="clear" type="button">Clear Storage</button></p>
 <h2 id="was"></h2>
 <div id="scroll2">
     <h2 id="list2"></h2>
     <h2 id="list"></h2>
 </div>
 
+<div>
+    <a id="back" asp-action="Index">Back to List</a>
+</div>
 
 
 <div id="result"></div>
-</div>
 <script>
+    alert(localStorage.getItem("hi"));
     var l = "";
     var ele = "";
     var hi = "";
@@ -153,7 +155,7 @@
         event.preventDefault();
     }
     var n = 1;
-    if (localStorage.getItem("n"+storage) == null) {
+    if (localStorage.getItem("n" + storage) == null) {
         n = 1;
     }
     else {
@@ -268,7 +270,6 @@
 
         localStorage.setItem("num" + storage, num);
         newItem = document.createElement("p");
-        newItem.innerHTML = document.getElementById(saved).innerHTML+ num.toString();
         newItem.style.marginLeft = document.getElementById(saved).style.marginLeft;
         newItem.style.marginRight = document.getElementById(saved).style.marginRight;
         newItem.style.marginTop = document.getElementById(saved).style.marginTop;
@@ -287,7 +288,10 @@
             newItem.className = "img";
             newItem.src = document.getElementById(saved).src;
         }
-        alert(newItem.className);
+        else {
+            newItem.innerHTML = document.getElementById(saved).innerHTML;
+        }
+
         num = num + 1;
         document.getElementById("list").appendChild(newItem);
         saveList();
@@ -301,12 +305,12 @@
         var doc = "";
         for (var k = 0; k <= num; k++) {
             doc = document.getElementById("list").childNodes[k];
-            
+
             if (doc != null) {
-                alert(doc.className);
-                if (document.getElementById(k.toString()).className == "btn") {
+
+                if (doc.className == "btn") {
                     Element = document.createElement("BUTTON");
-                    Element.id = "Button" +""+doc.id;
+                    Element.id = "Button" + "" + doc.id;
                 }
                 else if (doc.className == "inp") {
                     Element = document.createElement("INPUT");
@@ -316,9 +320,14 @@
                     Element = document.createElement("IMG");
                     Element.setAttribute("width", "100");
                     Element.setAttribute("height", "100");
-                    Element.id = "Image" + " " + s.toString();
-                    Element.setAttribute("src", doc.src);
-                    alert(doc.src);
+                    Element.id = "Image" + "" + doc.id;
+                    if (doc.innerHTML == "") {
+                        Element.src = "http://cdn.onlinewebfonts.com/svg/img_94880.png";
+                    }
+                    else {
+                        Element.src = doc.innerHTML;
+                    }
+
                 }
 
                 else {
@@ -335,9 +344,7 @@
                 Element.onclick = function () { Edit(this.id) };
                 Element.onmousedown = removeList;
                 arr.push(Element.id);
-                var addbr = document.createElement("BR");
                 document.getElementById("drop").appendChild(Element);
-                document.getElementById("drop").appendChild(addbr);
             }
 
 
@@ -368,7 +375,7 @@
             saveList();
         }
     }
-    
+
 
 
     function saveList() {
@@ -448,7 +455,8 @@
         saveList();
     }
     function ClickWeb() {
-        document.getElementById(hi).setAttribute("src", document.getElementById("Inpsrc").value);
+        inpsrc = document.getElementById("Inpsrc").value;
+        document.getElementById(hi).src = inpsrc;
         var why5 = document.getElementById(hi).id;
         var letnum5 = "";
         for (var i5 = 0; i5 < why5.length; i5++) {
@@ -483,7 +491,7 @@
     function Above(rise) {
         var drop = document.getElementById("drop");
         var list = document.getElementById("list");
-         for (var a = 0; a < arr.length; a++) {
+        for (var a = 0; a < arr.length; a++) {
             if (arr[a] == document.getElementById(rise).id && a != 0) {
                 element = document.getElementById(rise);
                 newItem3 = element.cloneNode(true);
@@ -505,9 +513,7 @@
                 arrI = arr[a - 1];
                 arr[a - 1] = arr[a];
                 arr[a] = arrI;
-                var addbr2 = document.createElement("BR");
                 list.insertBefore(newItem2, list.childNodes[a - 1]);
-                list.appendChild(addbr2);
                 drop.insertBefore(newItem3, drop.childNodes[a - 1]);
                 saveList();
                 Hello(newItem3);
@@ -516,9 +522,5 @@
         }
     }
 </script>
-
-
-
-
 
 

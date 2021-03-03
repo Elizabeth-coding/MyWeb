@@ -1,6 +1,23 @@
 ﻿@{
-    ViewData["Title"] = "Privacy Policy";
+    ViewData["Title"] = "Sign Up";
 }
 <h1>@ViewData["Title"]</h1>
 
-<p>Use this page to detail your site's privacy policy.</p>
+<input type ="text" id="text">
+<input type ="submit" onclick="Submit()">
+<script>
+    var n = 1;
+    if (localStorage.getItem("n") == null) {
+        n = 1;
+    }
+    else {
+        n = parseInt(localStorage.getItem("n"))+1;
+    }
+    function Submit() {
+        localStorage.setItem("n", n);
+        localStorage.setItem("num", localStorage.getItem("n"));
+        localStorage.setItem("username" + localStorage.getItem("num"), document.getElementById("text").value);
+        localStorage.setItem("last", localStorage("username") + localStorage.getItem("num"));
+        //alert(localStorage.getItem("username" + localStorage.getItem("num")));
+    }
+</script>
