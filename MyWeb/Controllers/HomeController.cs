@@ -27,6 +27,10 @@ namespace MyWeb.Controllers
         {
             return View();
         }
+        public IActionResult Geekration2()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

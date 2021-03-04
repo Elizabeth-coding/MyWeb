@@ -7,33 +7,49 @@
     }
 </style>
 <h1>Geekration</h1>
-<h2 id="list"></h2>
+<p><button onclick="clickCounter()" id="clear" type="button">Clear Storage</button></p>
 <button id="add" onclick="addnew()">Add</button>
 <script>
-    var user = localStorage.getItem("username" + localStorage.getItem("num"));
-    document.getElementById("list").id = user;
+    var user = localStorage.getItem("username");
+    var div = document.createElement("div");
+    div.id = user;
+    div.style.height = "500px";
+    div.style.padding = "10px";
+    div.style.border = "1px solid #aaaaaa";
+    div.style.width = "500px";
+    document.body.appendChild(div);
     var num = 1;
+    function clickCounter() {
+        localStorage.clear();
+    }
     if (localStorage.getItem("num") == null) {
         num = 1;
     }
     else {
         num = parseInt(localStorage.getItem("num")) + 1;
     }
-
-    function addnew() { 
+    function addnew() {
         localStorage.setItem("num", num);
-        var newitem = document.createElement("H3");
-        newitem.id = num;
+        var newitem = document.createElement("P");
+        newitem.id = localStorage.getItem("num").toString();
+        newitem.innerHTML = "hi";
         document.getElementById(user).appendChild(newitem);
-        num = num + 1;
+        num = num + 1; 
         saveList();
     }
     function saveList() {
-        localStorage.setItem("save", document.getElementById(user).innerHTML);
+        localStorage.setItem(user, document.getElementById(user).innerHTML);
+        alert(localStorage.getItem(user));
         updateList();
     }
     function updateList() {
-        document.getElementById(user).innerHTML = localStorage.getItem("save");
+        document.getElementById(user).innerHTML = localStorage.getItem(user);
+    }
+    if (localStorage.getItem(user)) {
+        updateList();
     }
 
+    
+    
+    
 </script>
