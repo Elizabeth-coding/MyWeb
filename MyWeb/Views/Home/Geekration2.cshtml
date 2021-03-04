@@ -8,15 +8,19 @@
 </style>
 <h1>Geekration</h1>
 <p><button onclick="clickCounter()" id="clear" type="button">Clear Storage</button></p>
-<button id="add" onclick="addnew()">Add</button>
+<p><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Create2">Create</a></p>
+<button id="add" onclick="addnew()"type="button">Add</button>
 <script>
     var user = localStorage.getItem("username");
     var div = document.createElement("div");
     div.id = user;
-    div.style.height = "500px";
+    div.style.height = "400px";
     div.style.padding = "10px";
     div.style.border = "1px solid #aaaaaa";
     div.style.width = "500px";
+    div.style.float = "right";
+    div.style.textAlign = "center";
+    div.style.marginRight = "710px";
     document.body.appendChild(div);
     var num = 1;
     function clickCounter() {
@@ -32,7 +36,8 @@
         localStorage.setItem("num", num);
         var newitem = document.createElement("P");
         newitem.id = localStorage.getItem("num").toString();
-        newitem.innerHTML = "hi";
+        alert(localStorage.getItem("passion"));
+        newitem.innerHTML = localStorage.getItem("passion");
         document.getElementById(user).appendChild(newitem);
         num = num + 1; 
         saveList();

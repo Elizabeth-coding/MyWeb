@@ -31,6 +31,10 @@ namespace MyWeb.Controllers
         {
             return View();
         }
+        public IActionResult Create2()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
