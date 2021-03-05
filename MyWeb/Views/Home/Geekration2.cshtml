@@ -2,15 +2,30 @@
     ViewData["Title"] = "Geekration";
 }
 <style>
-    body{
+    body {
         text-align: center;
     }
 </style>
-<h1>Geekration</h1>
-<p><button onclick="clickCounter()" id="clear" type="button">Clear Storage</button></p>
-<p><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Create2">Create</a></p>
-<button id="add" onclick="addnew()"type="button">Add</button>
+<div id="create">
+    <h1>Create</h1>
+    <p>Passions</p>
+    <input type="text" id="Passion">
+    <br />
+    <p>Hobbies</p>
+    <input type="text" id="Hobbies">
+    <br />
+    <p>Your Values</p>
+    <input type="text" id="Your_Values">
+    <br />
+    <input type="submit" id="Submit" onclick="addnew()">
+</div>
+<div id="hidegr">
+    <h1>Geekration</h1>
+    <p><button onclick="clickCounter()" id="clear" type="button">Clear Storage</button></p>
+    <button id="createbtn" onclick="hidegeekration()">Create</button>
+</div>
 <script>
+    document.getElementById("create").style.display = "none";
     var user = localStorage.getItem("username");
     var div = document.createElement("div");
     div.id = user;
@@ -23,23 +38,32 @@
     div.style.marginRight = "710px";
     document.body.appendChild(div);
     var num = 1;
+    function hidegeekration() {
+        document.getElementById("hidegr").style.display = "none";
+        document.getElementById(user).style.display = "none";
+        document.getElementById("create").style.display = "block";
+    }
     function clickCounter() {
         localStorage.clear();
     }
-    if (localStorage.getItem("num") == null) {
+    if (localStorage.getItem("num2") == null) {
         num = 1;
     }
     else {
-        num = parseInt(localStorage.getItem("num")) + 1;
+        num = parseInt(localStorage.getItem("num2")) + 1;
     }
+    
     function addnew() {
-        localStorage.setItem("num", num);
+        localStorage.setItem("num2", num);
         var newitem = document.createElement("P");
-        newitem.id = localStorage.getItem("num").toString();
+        newitem.id = localStorage.getItem("num2").toString();
         alert(localStorage.getItem("passion"));
         newitem.innerHTML = localStorage.getItem("passion");
         document.getElementById(user).appendChild(newitem);
-        num = num + 1; 
+        num = num + 1;
+        document.getElementById("hidegr").style.display = "block";
+        document.getElementById(user).style.display = "block";
+        document.getElementById("create").style.display = "none";
         saveList();
     }
     function saveList() {
@@ -54,7 +78,6 @@
         updateList();
     }
 
-    
-    
-    
+
+
 </script>

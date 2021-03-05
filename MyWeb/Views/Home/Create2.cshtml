@@ -2,16 +2,20 @@
     ViewData["Title"] = "Create";
 }
 <h1>Create</h1>
-<p>Passions</p>
-<input type ="text" id="Passion">
-<br />
-<p>Hobbies</p>
-<input type="text" id="Hobbies">
-<br/>
-<p>Your Values</p>
-<input type="text" id="Your_Values">
-<br/>
-<input type ="submit" id="Submit" onclick="finish()">
+
+    <p>Passions</p>
+    <input type="text" id="Passion">
+    <br />
+    <p>Hobbies</p>
+    <input type="text" id="Hobbies">
+    <br />
+    <p>Your Values</p>
+    <input type="text" id="Your_Values">
+    <br />
+    <input type="submit" id="Submit">
+
+<p><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Geekration2">Geekration</a></p>
+
 <script>
     function finish() {
         localStorage.setItem("passion", document.getElementById("Passion").value);
