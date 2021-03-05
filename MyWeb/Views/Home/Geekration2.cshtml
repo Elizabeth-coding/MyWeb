@@ -32,10 +32,9 @@
     div.style.height = "400px";
     div.style.padding = "10px";
     div.style.border = "1px solid #aaaaaa";
-    div.style.width = "500px";
+    div.style.width = "1600px";
     div.style.float = "right";
-    div.style.textAlign = "center";
-    div.style.marginRight = "710px";
+    div.style.marginRight = "160px";
     document.body.appendChild(div);
     var num = 1;
     function hidegeekration() {
@@ -46,20 +45,33 @@
     function clickCounter() {
         localStorage.clear();
     }
-    if (localStorage.getItem("num2") == null) {
+    if (localStorage.getItem("num2"+user) == null) {
         num = 1;
     }
     else {
-        num = parseInt(localStorage.getItem("num2")) + 1;
+        num = parseInt(localStorage.getItem("num2"+user)) + 1;
     }
-    
+    alert(user);
+    function details() {
+
+    }
+    var ele = "";
+    var allele = "";
     function addnew() {
-        localStorage.setItem("num2", num);
+        localStorage.setItem("num2" + user, num.toString()+user);
+        var pele = document.createElement("P");
+        pele.innerHTML = "Details";
+        pele.onclick = function () { details() };
         var newitem = document.createElement("P");
-        newitem.id = localStorage.getItem("num2").toString();
-        alert(localStorage.getItem("passion"));
-        newitem.innerHTML = localStorage.getItem("passion");
+        newitem.id = localStorage.getItem("num2"+user);
+        newitem.innerHTML = document.getElementById("Passion").value+""+pele;
+        newitem.style.float = "left";
+        var br = document.createElement("BR");
         document.getElementById(user).appendChild(newitem);
+        document.getElementById(user).appendChild(br);
+        newitem.name0 = document.getElementById("Hobbies").value;
+        newitem.name1 = document.getElementById("Your_Values").value;
+        alert(newitem.name0);
         num = num + 1;
         document.getElementById("hidegr").style.display = "block";
         document.getElementById(user).style.display = "block";
