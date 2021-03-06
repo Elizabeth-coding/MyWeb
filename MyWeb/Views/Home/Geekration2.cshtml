@@ -4,6 +4,7 @@
 <style>
     body {
         text-align: center;
+        display: grid;
     }
 </style>
 <div id="create">
@@ -32,9 +33,9 @@
     div.style.height = "400px";
     div.style.padding = "10px";
     div.style.border = "1px solid #aaaaaa";
-    div.style.width = "1600px";
-    div.style.float = "right";
-    div.style.marginRight = "160px";
+    div.style.width = document.body.style.width;
+    div.style.overflowX = "hidden";
+    div.style.overflowY = "auto";
     document.body.appendChild(div);
     var num = 1;
     function hidegeekration() {
@@ -45,32 +46,36 @@
     function clickCounter() {
         localStorage.clear();
     }
-    if (localStorage.getItem("num2"+user) == null) {
+    if (localStorage.getItem("num2" + user) == null) {
         num = 1;
     }
     else {
-        num = parseInt(localStorage.getItem("num2"+user)) + 1;
+        num = parseInt(localStorage.getItem("num2" + user)) + 1;
     }
+    function details(click) {
+        alert(click);
+    } 
     alert(user);
-    function details() {
-
-    }
     var ele = "";
     var allele = "";
     function addnew() {
-        localStorage.setItem("num2" + user, num.toString()+user);
+        localStorage.setItem("num2" + user, num.toString() + user);
+        var newitem = document.createElement("P");
+        newitem.id = localStorage.getItem("num2" + user);
+        newitem.innerHTML = document.getElementById("Passion").value;
         var pele = document.createElement("P");
         pele.innerHTML = "Details";
-        pele.onclick = function () { details() };
-        var newitem = document.createElement("P");
-        newitem.id = localStorage.getItem("num2"+user);
-        newitem.innerHTML = document.getElementById("Passion").value+""+pele;
+        pele.onclick = function () { details(this.className) };
+        pele.id = "Details" + localStorage.getItem("num2" + user);
+        pele.className = newitem.id;
+        newitem.appendChild(pele);
         newitem.style.float = "left";
         var br = document.createElement("BR");
-        document.getElementById(user).appendChild(newitem);
-        document.getElementById(user).appendChild(br);
         newitem.name0 = document.getElementById("Hobbies").value;
         newitem.name1 = document.getElementById("Your_Values").value;
+        document.getElementById(user).appendChild(newitem);
+        document.getElementById(user).appendChild(pele);
+        document.getElementById(user).appendChild(br);
         alert(newitem.name0);
         num = num + 1;
         document.getElementById("hidegr").style.display = "block";
@@ -81,15 +86,18 @@
     function saveList() {
         localStorage.setItem(user, document.getElementById(user).innerHTML);
         alert(localStorage.getItem(user));
-        updateList();
     }
     function updateList() {
         document.getElementById(user).innerHTML = localStorage.getItem(user);
     }
     if (localStorage.getItem(user)) {
         updateList();
+        for (var a = 1; a < num; a++) {
+            //alert(document.getElementById("Details" + a.toString() + user).id);
+            document.getElementById("Details" + a.toString() + user).onclick = function () { details(this.className) };
+        }
+        
     }
-
-
-
+    
 </script>
+
