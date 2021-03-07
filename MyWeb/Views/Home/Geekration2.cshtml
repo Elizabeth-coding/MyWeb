@@ -89,9 +89,11 @@
     function addnew() {
         localStorage.setItem("num2" + user, num.toString() + user);
         var newitem = document.createElement("P");
-        newitem.id = user+localStorage.getItem("num2" + user);
+        newitem.id = localStorage.getItem("num2" + user).toString();
+        alert(newitem.id);
         localStorage.setItem("newitem", user + document.getElementById("Passion").value+ newitem.id);
         newitem.innerHTML = document.getElementById("Passion").value;
+        //newitem.style.marginRight= "800px";
         var pele = document.createElement("P");
         pele.innerHTML = "Details";
         pele.onclick = function () { details(this.className) };
@@ -103,9 +105,9 @@
         aele.append(gs);
         aele.title = "Geeksign";
         aele.href = "/Home/Geeksign";  
-        aele.style.float = "left";
-        newitem.appendChild(pele);
-        newitem.appendChild(aele);
+        //aele.style.float = "right";
+        aele.style.marginLeft = "800px";
+        newitem.appendChild(aele,pele);
         newitem.style.float = "left";
         var br = document.createElement("BR");
         newitem.className = "Hobbies: " + document.getElementById("Hobbies").value + "\n"
