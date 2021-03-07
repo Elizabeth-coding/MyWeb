@@ -18,6 +18,15 @@
     <p>Your Values</p>
     <input type="text" id="Your_Values">
     <br />
+    <p>If I could change something in this world it would be:</p>
+    <input type="text" id="Change1">
+    <br />
+    <p>Change 2</p>
+    <input type="text" id="Change2">
+    <br />
+    <p>Change 3</p>
+    <input type="text" id="Change3">
+    <br />
     <input type="submit" id="Submit" onclick="addnew()">
 </div>
 <div id="hidegr">
@@ -25,8 +34,14 @@
     <p><button onclick="clickCounter()" id="clear" type="button">Clear Storage</button></p>
     <button id="createbtn" onclick="hidegeekration()">Create</button>
 </div>
+<div id="details">
+    <h1>Details</h1>
+    <h2 id="hobby&values"></h2>
+    <button onclick="Back()">Back</button>
+</div>
 <script>
     document.getElementById("create").style.display = "none";
+    document.getElementById("details").style.display = "none";
     var user = localStorage.getItem("username");
     var div = document.createElement("div");
     div.id = user;
@@ -42,6 +57,13 @@
         document.getElementById("hidegr").style.display = "none";
         document.getElementById(user).style.display = "none";
         document.getElementById("create").style.display = "block";
+        document.getElementById("hobby&values").style.display = "none";
+    }
+    function Back() {
+        document.getElementById("hidegr").style.display = "block";
+        document.getElementById(user).style.display = "block";
+        document.getElementById("create").style.display = "none";
+        document.getElementById("details").style.display = "none";
     }
     function clickCounter() {
         localStorage.clear();
@@ -53,7 +75,13 @@
         num = parseInt(localStorage.getItem("num2" + user)) + 1;
     }
     function details(click) {
-        alert(click);
+        alert(document.getElementById(click).className);
+        //document.getElementById("hobby&values").innerHTML = document.getElementById(click).className;
+        //document.getElementById("hidegr").style.display = "none";
+        //document.getElementById(user).style.display = "none";
+        //document.getElementById("details").style.display = "block";
+        //document.getElementById("create").style.display = "none";
+        
     } 
     alert(user);
     var ele = "";
@@ -61,26 +89,35 @@
     function addnew() {
         localStorage.setItem("num2" + user, num.toString() + user);
         var newitem = document.createElement("P");
-        newitem.id = localStorage.getItem("num2" + user);
+        newitem.id = user+localStorage.getItem("num2" + user);
+        localStorage.setItem("newitem", user + document.getElementById("Passion").value+ newitem.id);
         newitem.innerHTML = document.getElementById("Passion").value;
         var pele = document.createElement("P");
         pele.innerHTML = "Details";
         pele.onclick = function () { details(this.className) };
         pele.id = "Details" + localStorage.getItem("num2" + user);
-        pele.className = newitem.id;
+        pele.className = localStorage.getItem("num2" + user);
+        //Geeksign
+        var aele = document.createElement("a");
+        var gs = document.createTextNode("Geeksign"); 
+        aele.append(gs);
+        aele.title = "Geeksign";
+        aele.href = "/Home/Geeksign";  
+        aele.style.float = "left";
         newitem.appendChild(pele);
+        newitem.appendChild(aele);
         newitem.style.float = "left";
         var br = document.createElement("BR");
-        newitem.name0 = document.getElementById("Hobbies").value;
-        newitem.name1 = document.getElementById("Your_Values").value;
+        newitem.className = "Hobbies: " + document.getElementById("Hobbies").value + "\n"
+            + "Your Values: " + document.getElementById("Your_Values").value + "\n"
+            + "If I could change something in this world it would be: " + document.getElementById("Change1").value + "\n"
+            + "Change 2: " + document.getElementById("Change2").value + "\n"
+            + "Change 3: " + document.getElementById("Change3").value;
         document.getElementById(user).appendChild(newitem);
         document.getElementById(user).appendChild(pele);
         document.getElementById(user).appendChild(br);
-        alert(newitem.name0);
         num = num + 1;
-        document.getElementById("hidegr").style.display = "block";
-        document.getElementById(user).style.display = "block";
-        document.getElementById("create").style.display = "none";
+        Back();
         saveList();
     }
     function saveList() {
@@ -93,7 +130,6 @@
     if (localStorage.getItem(user)) {
         updateList();
         for (var a = 1; a < num; a++) {
-            //alert(document.getElementById("Details" + a.toString() + user).id);
             document.getElementById("Details" + a.toString() + user).onclick = function () { details(this.className) };
         }
         
