@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Sign Up";
+    ViewData["Title"] = "Sign In";
 }
 <h1>@ViewData["Title"]</h1>
 <h3>Username</h3>
@@ -7,9 +7,8 @@
 <br/>
 <h3>Password</h3>
 <input type="text" id="password">
-<input type ="submit" onclick="Submit()" id="sbmt">
+<input type ="submit" onclick="Submit()">
 <script>
-    document.getElementById("sbmt").style.display = "none";
     var n = 1;
     if (localStorage.getItem("n") == null) {
         n = 1;
@@ -21,17 +20,17 @@
     function Check() {
         localStorage.setItem("username", document.getElementById("text").value);
         user = localStorage.getItem("username");
-        if (localStorage.getItem("password" + user) != null) {
-            alert("NO");
-        }
-        else if(document.getElementById("password").value != ""){
-            document.getElementById("sbmt").style.display = "block";
-        }
     }
     document.getElementById("text").addEventListener("keyup", Check);
     function Submit() {
         localStorage.setItem("username", document.getElementById("text").value);
-        localStorage.setItem("password" + user, document.getElementById("password").value);
-        
+        if (document.getElementById("password").value != localStorage.getItem("password" + user)) {
+            alert("STOP");
+        }
+        else {
+            alert("YES");
+            localStorage.setItem("password" + user, document.getElementById("password").value);
+            alert(document.getElementById("password").value);
+        }
     }
 </script>
