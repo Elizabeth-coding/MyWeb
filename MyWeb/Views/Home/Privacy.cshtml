@@ -4,6 +4,8 @@
 <h1>@ViewData["Title"]</h1>
 
 <input type ="text" id="text">
+<br/>
+<input type="text" id="password">
 <input type ="submit" onclick="Submit()">
 <script>
     var n = 1;
@@ -13,7 +15,18 @@
     else {
         n = parseInt(localStorage.getItem("n"))+1;
     }
+    var user = "";
+    function Check() {
+        localStorage.setItem("username", document.getElementById("text").value);
+        user = localStorage.getItem("username");
+        if (localStorage.getItem("password" + user) != null) {
+            alert("NO");
+        }
+    }
+    document.getElementById("text").addEventListener("keyup", Check);
     function Submit() {
         localStorage.setItem("username", document.getElementById("text").value);
+        localStorage.setItem("password" + user, document.getElementById("password").value);
+        alert(document.getElementById("password").value);
     }
 </script>
