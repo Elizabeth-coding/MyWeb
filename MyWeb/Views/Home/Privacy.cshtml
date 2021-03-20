@@ -22,13 +22,14 @@
         localStorage.setItem("username", document.getElementById("text").value);
         user = localStorage.getItem("username");
         if (localStorage.getItem("password" + user) != null) {
-            alert("NO");
+            alert("Please use a different username");
+            document.getElementById("text").value = "";
         }
-        else if(document.getElementById("password").value != ""){
+        else if (document.getElementById("text").value != ""){
             document.getElementById("sbmt").style.display = "block";
         }
     }
-    document.getElementById("text").addEventListener("keyup", Check);
+    document.getElementById("password").addEventListener("keyup", Check);
     function Submit() {
         localStorage.setItem("username", document.getElementById("text").value);
         localStorage.setItem("password" + user, document.getElementById("password").value);
