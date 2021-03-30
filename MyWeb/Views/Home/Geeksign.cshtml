@@ -182,7 +182,7 @@
         document.getElementById("drop").appendChild(br);
         cln.ondblclick = function () { Above(this.id) };
         cln.onclick = function () { Edit(this.id) };
-        cln.onmousedown = function () { rightclk(event, this.id) };
+        cln.onmousedown = removeList;
         document.getElementById("drop").appendChild(cln);
         document.getElementById("hello").innerHTML = "Click the element you want to change then type your text in the input area bellow this text. Double click the elements to change the placement of them. You can delete elements in your website screen by right clicking.";
         n = n + 1;

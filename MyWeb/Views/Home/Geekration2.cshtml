@@ -30,6 +30,8 @@
         <input type="text" id="Change3">
         <br />
         <input type="submit" id="Submit" onclick="addnew()">
+        <br/>
+        <button onclick="Back()">Back</button>
     </div>
     <div id="hidegr">
         <h1>Geekration</h1>
@@ -43,7 +45,7 @@
     </div>
 </div>
 <script>
-    
+    //The containter
     document.getElementById("create").style.display = "none";
     document.getElementById("details").style.display = "none";
     var user = localStorage.getItem("username");
@@ -65,12 +67,14 @@
         document.getElementById("plsign").style.display = "none";
     }
     var num = 1;
+    //Hide the list of geekrations
     function hidegeekration() {
         document.getElementById("hidegr").style.display = "none";
         document.getElementById(user).style.display = "none";
         document.getElementById("create").style.display = "block";
         document.getElementById("hobby&values").style.display = "none";
     }
+    //Hide create
     function Back() {
         document.getElementById("hidegr").style.display = "block";
         document.getElementById(user).style.display = "block";
@@ -88,26 +92,20 @@
     }
     function details(click) {
         alert(document.getElementById(click).className);
-        //document.getElementById("hobby&values").innerHTML = document.getElementById(click).className;
-        //document.getElementById("hidegr").style.display = "none";
-        //document.getElementById(user).style.display = "none";
-        //document.getElementById("details").style.display = "block";
-        //document.getElementById("create").style.display = "none";
         
     } 
-    alert(user);
     var ele = "";
     var allele = "";
     function addnew() {
         localStorage.setItem("num2" + user, num.toString() + user);
+        //Container for details and geeksign
         var newitem = document.createElement("P");
         newitem.id = localStorage.getItem("num2" + user).toString();
-        alert(newitem.id);
         localStorage.setItem("newitem", user + document.getElementById("Passion").value+ newitem.id);
         newitem.innerHTML = document.getElementById("Passion").value;
         //Details
         var pele = document.createElement("P");
-        pele.innerHTML = "Details";
+        pele.innerHTML = "Details || ";
         pele.onclick = function () { details(this.className) };
         pele.id = "Details" + localStorage.getItem("num2" + user);
         pele.className = localStorage.getItem("num2" + user);
@@ -121,11 +119,15 @@
         aele.href = "/Home/Geeksign";  
         newitem.style.float = "left";
         var br = document.createElement("BR");
+        //Details Info
         newitem.className = "Hobbies: " + document.getElementById("Hobbies").value + "\n"
             + "Your Values: " + document.getElementById("Your_Values").value + "\n"
             + "If I could change something in this world it would be: " + document.getElementById("Change1").value + "\n"
             + "Change 2: " + document.getElementById("Change2").value + "\n"
             + "Change 3: " + document.getElementById("Change3").value;
+        //newitem design
+        newitem.style.border = "outset";
+        //Put everything together
         document.getElementById(user).appendChild(newitem);
         pele.appendChild(aele);
         newitem.appendChild(pele);
@@ -136,7 +138,6 @@
     }
     function saveList() {
         localStorage.setItem(user, document.getElementById(user).innerHTML);
-        alert(localStorage.getItem(user));
     }
     function updateList() {
         document.getElementById(user).innerHTML = localStorage.getItem(user);
@@ -144,9 +145,9 @@
     if (localStorage.getItem(user)) {
         updateList();
         for (var a = 1; a < num; a++) {
-            //document.getElementById(user + a.toString()).style.marginRight = "100px";
             document.getElementById("Details" + a.toString() + user).onclick = function () { details(this.className) };
             document.getElementById("Details" + a.toString() + user).style.float = "left";
+
         }
         
     }
