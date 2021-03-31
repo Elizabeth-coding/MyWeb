@@ -121,7 +121,7 @@
     <h2 id="list2"></h2>
     <h2 id="list"></h2>
 </div>
-
+<a href="/Home/AllGeeksignPg">Back</a>
 
 <div id="result"></div>
 <script>
@@ -137,7 +137,8 @@
     var arrI = "";
     var tr = "true";
     var x = document.getElementById("scroll");
-    var storage = localStorage.getItem("newitem");
+    var storage = localStorage.getItem("nameid");
+    alert(storage);
     x.style.display = "none";
     function dragStart(Chose) {
         event.dataTransfer.setData("Text", event.target.id);

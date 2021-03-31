@@ -1,0 +1,69 @@
+﻿@{
+    ViewData["Title"] = "All Geeksign Pages";
+}
+<style>
+    body {
+        text-align: center;
+    }
+</style>
+<h1>Geeksign</h1>
+<input type="button" value="Add" onclick="AddScreens()">
+<script>
+    //container
+    var container = document.createElement("div");
+    container.style.width = "1300px";
+    container.style.height = "500px";
+    container.style.marginLeft = "300px";
+    container.style.border = "solid";
+    container.id = localStorage.getItem("newitem");
+    document.body.appendChild(container);
+    var nameid = localStorage.getItem("newitem");
+    //add screens
+    //id n
+    var n = 1;
+    if (localStorage.getItem("n" + nameid) == null) {
+        n = 1;
+    }
+    else {
+        n = parseInt(localStorage.getItem("n" + nameid)) + 1;
+    }
+    function AddScreens() {
+        //id for geeksigns
+        localStorage.setItem("n"+ nameid, n);
+        localStorage.setItem("nameid"+n.toString(), nameid + localStorage.getItem("n" + nameid).toString());
+        alert(localStorage.getItem("nameid"));
+        //link to the geeksign
+        var label = document.createElement("p");
+        label.onclick = function () { Link(this.id)};
+        label.innerHTML = n.toString();
+        label.id = n.toString();
+        label.class = "label";
+        //br
+        var br = document.createElement("br");
+        //Add them the container
+        document.getElementById(nameid).appendChild(label);
+        document.getElementById(nameid).appendChild(br);
+        //save and add to n
+        n = n + 1;
+        saveList();
+    }
+    //Link
+    function Link(labelid) {
+        var localabel = localStorage.getItem("nameid" + labelid);
+        localStorage.setItem("nameid", localabel);
+        window.location.replace('/Home/Geeksign');
+    }
+    //Save & Update Container
+    function saveList() {
+        localStorage.setItem(nameid, document.getElementById(nameid).innerHTML);
+    }
+    function updateList() {
+        document.getElementById(nameid).innerHTML = localStorage.getItem(nameid);
+        for (var a = 1; a <= n; a++) {
+            document.getElementById(a.toString()).onclick = function () { Link(this.id) };
+        }
+    }
+    if (localStorage.getItem(nameid)) {
+        updateList();
+    }
+</script>

@@ -101,7 +101,7 @@
         //Container for details and geeksign
         var newitem = document.createElement("P");
         newitem.id = localStorage.getItem("num2" + user).toString();
-        localStorage.setItem("newitem", user + document.getElementById("Passion").value+ newitem.id);
+        localStorage.setItem("newitem", document.getElementById("Passion").value+ newitem.id);
         newitem.innerHTML = document.getElementById("Passion").value;
         //Details
         var pele = document.createElement("P");
@@ -116,7 +116,7 @@
         var gs = document.createTextNode("Geeksign"); 
         aele.append(gs);
         aele.title = "Geeksign";
-        aele.href = "/Home/Geeksign";  
+        aele.href = "/Home/AllGeeksignPg";  
         newitem.style.float = "left";
         var br = document.createElement("BR");
         //Details Info
@@ -126,7 +126,7 @@
             + "Change 2: " + document.getElementById("Change2").value + "\n"
             + "Change 3: " + document.getElementById("Change3").value;
         //newitem design
-        newitem.style.border = "outset";
+        //newitem.style.border = "outset";
         //Put everything together
         document.getElementById(user).appendChild(newitem);
         pele.appendChild(aele);
