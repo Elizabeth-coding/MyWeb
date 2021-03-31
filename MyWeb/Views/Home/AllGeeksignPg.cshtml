@@ -31,7 +31,6 @@
         //id for geeksigns
         localStorage.setItem("n"+ nameid, n);
         localStorage.setItem("nameid"+n.toString(), nameid + localStorage.getItem("n" + nameid).toString());
-        alert(localStorage.getItem("nameid"));
         //link to the geeksign
         var label = document.createElement("p");
         label.onclick = function () { Link(this.id)};

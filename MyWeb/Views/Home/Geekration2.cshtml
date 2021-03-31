@@ -100,8 +100,8 @@
         localStorage.setItem("num2" + user, num.toString() + user);
         //Container for details and geeksign
         var newitem = document.createElement("P");
-        newitem.id = localStorage.getItem("num2" + user).toString();
-        localStorage.setItem("newitem", document.getElementById("Passion").value+ newitem.id);
+        var vnum2 = localStorage.getItem("num2" + user).toString();
+        localStorage.setItem("newitem"+vnum2, document.getElementById("Passion").value+ vnum2);
         newitem.innerHTML = document.getElementById("Passion").value;
         //Details
         var pele = document.createElement("P");
@@ -112,11 +112,14 @@
         pele.style.float = "right";
         pele.style.marginLeft = "100px";
         //Geeksign
-        var aele = document.createElement("a");
+        var lele = document.createElement("p");
         var gs = document.createTextNode("Geeksign"); 
-        aele.append(gs);
-        aele.title = "Geeksign";
-        aele.href = "/Home/AllGeeksignPg";  
+        lele.append(gs);
+        lele.title = "Geeksign";
+        lele.onclick = function () { Link(this.id) };
+        lele.id = vnum2;
+        lele.style.float = "right";
+        lele.className = "Geeksign";
         newitem.style.float = "left";
         var br = document.createElement("BR");
         //Details Info
@@ -126,16 +129,23 @@
             + "Change 2: " + document.getElementById("Change2").value + "\n"
             + "Change 3: " + document.getElementById("Change3").value;
         //newitem design
-        //newitem.style.border = "outset";
+
         //Put everything together
         document.getElementById(user).appendChild(newitem);
-        pele.appendChild(aele);
+        pele.appendChild(lele);
         newitem.appendChild(pele);
         document.getElementById(user).appendChild(br);
         num = num + 1;
         Back();
         saveList();
     }
+    //Link
+    function Link(labelid) {
+        var localabel = localStorage.getItem("newitem" + labelid);
+        localStorage.setItem("newitem", localabel);
+        window.location.replace('/Home/AllGeeksignPg');
+    }
+    //Save & Update Container
     function saveList() {
         localStorage.setItem(user, document.getElementById(user).innerHTML);
     }
@@ -147,6 +157,7 @@
         for (var a = 1; a < num; a++) {
             document.getElementById("Details" + a.toString() + user).onclick = function () { details(this.className) };
             document.getElementById("Details" + a.toString() + user).style.float = "left";
+            document.getElementById(a.toString()).onclick = function () { Link(this.id) };
 
         }
         
