@@ -30,7 +30,7 @@
         <input type="text" id="Change3">
         <br />
         <input type="submit" id="Submit" onclick="addnew()">
-        <br/>
+        <br />
         <button onclick="Back()">Back</button>
     </div>
     <div id="hidegr">
@@ -92,17 +92,19 @@
     }
     function details(click) {
         alert(document.getElementById(click).className);
-        
-    } 
+
+    }
     var ele = "";
     var allele = "";
     function addnew() {
         localStorage.setItem("num2" + user, num.toString() + user);
+        localStorage.setItem("num3" + user, num.toString());
         //Container for details and geeksign
         var newitem = document.createElement("P");
-        var vnum2 = localStorage.getItem("num2" + user).toString();
-        localStorage.setItem("newitem"+vnum2, document.getElementById("Passion").value+ vnum2);
+        var vnum2 = localStorage.getItem("num2" + user);
+        localStorage.setItem("newitem" + vnum2, document.getElementById("Passion").value + vnum2);
         newitem.innerHTML = document.getElementById("Passion").value;
+        newitem.id = vnum2;
         //Details
         var pele = document.createElement("P");
         pele.innerHTML = "Details || ";
@@ -113,11 +115,9 @@
         pele.style.marginLeft = "100px";
         //Geeksign
         var lele = document.createElement("p");
-        var gs = document.createTextNode("Geeksign"); 
-        lele.append(gs);
-        lele.title = "Geeksign";
+        lele.innerHTML= "Geeksign";
         lele.onclick = function () { Link(this.id) };
-        lele.id = vnum2;
+        lele.id = localStorage.getItem("num3"+user);
         lele.style.float = "right";
         lele.className = "Geeksign";
         newitem.style.float = "left";
@@ -129,7 +129,6 @@
             + "Change 2: " + document.getElementById("Change2").value + "\n"
             + "Change 3: " + document.getElementById("Change3").value;
         //newitem design
-
         //Put everything together
         document.getElementById(user).appendChild(newitem);
         pele.appendChild(lele);
@@ -141,7 +140,8 @@
     }
     //Link
     function Link(labelid) {
-        var localabel = localStorage.getItem("newitem" + labelid);
+        alert(labelid);
+        var localabel = localStorage.getItem("newitem" + labelid+user);
         localStorage.setItem("newitem", localabel);
         window.location.replace('/Home/AllGeeksignPg');
     }
@@ -157,11 +157,10 @@
         for (var a = 1; a < num; a++) {
             document.getElementById("Details" + a.toString() + user).onclick = function () { details(this.className) };
             document.getElementById("Details" + a.toString() + user).style.float = "left";
+            document.getElementById(a.toString()).style.float = "left";
             document.getElementById(a.toString()).onclick = function () { Link(this.id) };
-
         }
-        
-    }
-    
-</script>
 
+    }
+
+</script>
