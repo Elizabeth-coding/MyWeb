@@ -2,6 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 <style>
+    
     img {
         height: 300px;
         width: 512px;
@@ -9,13 +10,17 @@
     .Right {
         margin-top: 100px;
         float: right;
+        margin-right: 140px;
 
     }
     .Right2 {
         float: right;
+        
     }
     .extraspace {
         margin-top: 300px;
+        grid-area: footer;
+        background-color: hotpink;
     }
     .text-center {
         text-align:center;
@@ -24,25 +29,43 @@
     #h22 {
         margin-top: 100px;
         float: left;
+        margin-left: 140px;
+        
+    }
+    #title {
+        font-family: Garamond;
+        margin-bottom: 30px;
+        margin-top: 40px;
+        color: black;
+        background-color: lightblue;
+        padding: 100px;
+        width: 100%;
+    }
+    #First {
+        background-color: hotpink;
+        
+    }
+    #Second {
+        background-color: aqua;
     }
 </style>
-<div class="text-center">
+<div class="AllComponenets">
+<div class="text-center" id="title">
     <h1 class="display-4">Geeky Wired</h1>
     <h2>Create your projects here!</h2>
 </div>
-<div>
-<img src="https://raisevegan.com/wp-content/uploads/2019/10/Savannah-Cat-1024x683.jpg" alt="HTML5 Icon">
-<h2 class="Right">Write your projects here!</h2>
+<div id="First">
+    <img src="https://raisevegan.com/wp-content/uploads/2019/10/Savannah-Cat-1024x683.jpg" alt="HTML5 Icon">
+    <h2 class="Right">Write your projects here!</h2>
 </div>
 <br/>
-<div>
-<h2 id="h22">Design your first page!</h2>
-</div>
-<div>
+<div id="Second">
     <img class="Right2" src="http://i.huffpost.com/gen/1486888/images/o-GRUMPY-CAT-facebook.jpg">
+    <h2 id="h22">Design your first page!</h2>
 </div>
 <br/>
 <div class="extraspace">
     <img src="https://tse1.mm.bing.net/th?id=OIP.5JZLwzppttmmrXWR3_kI3wHaJ4&pid=Api&P=0&w=300&h=300">
     <h2 class="Right">Change the world!</h2>
+</div>
 </div>
